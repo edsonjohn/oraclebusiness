@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OracleBusiness — Software Lab especializado em Automação com AI, Agentes LLM e Mobile App Development. Lisboa, Portugal.">
+  <title>OracleBusiness — Software Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- SVG SYMBOLS -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="globe" viewBox="0 0 200 200">
+    <g fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M100 22 Q142 58 134 118 Q112 172 82 176 Q42 162 32 112 Q26 62 72 32 Z"/>
+      <path d="M100 22 Q62 58 56 112 Q60 157 82 176"/>
+      <path d="M134 118 Q92 132 56 112"/>
+      <path d="M72 32 Q102 72 134 118"/>
+      <path d="M72 32 Q56 82 56 112"/>
+      <line x1="100" y1="22" x2="118" y2="78"/>
+      <line x1="72" y1="32" x2="118" y2="78"/>
+      <line x1="118" y1="78" x2="82" y2="102"/>
+      <line x1="118" y1="78" x2="134" y2="118"/>
+      <line x1="82" y1="102" x2="56" y2="112"/>
+      <line x1="82" y1="102" x2="97" y2="142"/>
+      <line x1="82" y1="102" x2="134" y2="118"/>
+      <line x1="134" y1="118" x2="97" y2="142"/>
+      <line x1="56" y1="112" x2="82" y2="176"/>
+      <line x1="97" y1="142" x2="82" y2="176"/>
+      <line x1="132" y1="46" x2="118" y2="78"/>
+      <line x1="132" y1="46" x2="100" y2="22"/>
+    </g>
+    <g fill="currentColor">
+      <circle cx="100" cy="22" r="5"/>
+      <circle cx="72" cy="32" r="4"/>
+      <circle cx="132" cy="46" r="3"/>
+      <circle cx="56" cy="82" r="4"/>
+      <circle cx="118" cy="78" r="7"/>
+      <circle cx="82" cy="102" r="8"/>
+      <circle cx="134" cy="118" r="5"/>
+      <circle cx="56" cy="112" r="4"/>
+      <circle cx="97" cy="142" r="3.5"/>
+      <circle cx="82" cy="176" r="6"/>
+      <circle cx="150" cy="30" r="3.5"/>
+      <circle cx="162" cy="44" r="2.5"/>
+      <circle cx="158" cy="22" r="2"/>
+      <circle cx="148" cy="52" r="2"/>
+    </g>
+  </symbol>
+  <symbol id="ic-target" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <circle cx="12" cy="12" r="5.5"/>
+      <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>
+    </g>
+  </symbol>
+  <symbol id="ic-cycle" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 11a8 8 0 0 0-13.7-4.7L4 8.6"/>
+      <path d="M4 4.4V9h4.6"/>
+      <path d="M4 13a8 8 0 0 0 13.7 4.7L20 15.4"/>
+      <path d="M20 19.6V15h-4.6"/>
+    </g>
+  </symbol>
+  <symbol id="ic-trend" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 16.5l6-6 4 4 8-8.5"/>
+      <path d="M14.5 6h6.5v6.5"/>
+    </g>
+  </symbol>
+  <symbol id="ic-repeat" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 2l4 4-4 4"/>
+      <path d="M21 6H8a4 4 0 0 0-4 4v1"/>
+      <path d="M7 22l-4-4 4-4"/>
+      <path d="M3 18h13a4 4 0 0 0 4-4v-1"/>
+    </g>
+  </symbol>
+  <symbol id="ic-clock" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M12 7.5v5l3.5 2"/>
+    </g>
+  </symbol>
+  <symbol id="ic-x-circle" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/>
+    </g>
+  </symbol>
+  <symbol id="ic-users" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="8" r="3"/>
+      <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+      <path d="M16 4.3a3 3 0 0 1 0 5.8"/>
+      <path d="M21 20c0-2.8-1.9-5.1-4.5-5.8"/>
+    </g>
+  </symbol>
+  <symbol id="ic-file-clock" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+      <path d="M14 3v4h4"/>
+      <circle cx="12" cy="14.5" r="3.2"/>
+      <path d="M12 13v1.6l1 .8"/>
+    </g>
+  </symbol>
+  <symbol id="ic-bolt" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/>
+  </symbol>
+  <symbol id="ic-moon" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>
+  </symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M8 12.5l2.5 2.5L16 9.5"/>
+    </g>
+  </symbol>
+  <symbol id="ic-rocket" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2c3 2 5 6 5 10 0 2-.5 3.5-1.5 5l-1 2h-5l-1-2c-1-1.5-1.5-3-1.5-5 0-4 2-8 5-10z"/>
+      <circle cx="12" cy="10" r="1.5" fill="currentColor" stroke="none"/>
+      <path d="M9 15l-3 2 1-3.5"/>
+      <path d="M15 15l3 2-1-3.5"/>
+    </g>
+  </symbol>
+  <symbol id="ic-chart" viewBox="0 0 24 24">
+    <g fill="currentColor">
+      <rect x="3" y="13" width="3.2" height="8" rx="0.6"/>
+      <rect x="9.4" y="8" width="3.2" height="13" rx="0.6"/>
+      <rect x="15.8" y="3" width="3.2" height="18" rx="0.6"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- MASTHEAD -->
+<div class="masthead"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="n-logo">
+    <svg class="n-icon" viewBox="0 0 200 200" color="#B91C3C">
+      <use href="#globe"/>
+    </svg>
+    <div>
+      <div class="n-name">OracleBusiness</div>
+      <div class="n-sub">Software Lab</div>
+    </div>
+  </div>
+  <div class="n-links">
+    <a class="n-link" href="#servicos">Serviços</a>
+    <a class="n-link" href="#setores">Setores</a>
+    <a class="n-link" href="#processo">Processo</a>
+    <a class="n-link" href="#precos">Preços</a>
+    <a class="n-link" href="#faq">FAQ</a>
+  </div>
+  <button class="n-btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+    Falar connosco
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="h-badge">
+      <span class="h-pulse"></span>
+      Software Lab · Lisboa, Portugal · Disponível para projetos
+    </div>
+    <h1>
+      Sistemas<br>
+      <span class="dim">que</span><br>
+      <span class="red">pensam.</span>
+    </h1>
+  </div>
+  <div class="h-right">
+    <div class="h-bar"></div>
+    <p class="h-desc">
+      Construímos automação inteligente, agentes de linguagem e apps mobile que eliminam o trabalho repetitivo e amplificam o que a tua equipa consegue fazer — em semanas, não meses.
+    </p>
+    <div class="h-btns">
+      <button class="btn-r" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+        Iniciar projeto →
+      </button>
+      <button class="btn-g" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">
+        Ver serviços
+      </button>
+    </div>
+    <div class="h-proof">
+      <span>Deploy em &lt;6 semanas</span>
+      <div class="h-proof-sep"></div>
+      <span>B2B · Portugal &amp; Europa</span>
+      <div class="h-proof-sep"></div>
+      <span>Projetos à medida</span>
+    </div>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="hero-network"></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker">
+    <span class="t-item">Automação de Processos <span class="t-sep">◆</span></span>
+    <span class="t-item">Agentes LLM <span class="t-sep">◆</span></span>
+    <span class="t-item">Mobile Apps <span class="t-sep">◆</span></span>
+    <span class="t-item">Document AI <span class="t-sep">◆</span></span>
+    <span class="t-item">Voice AI <span class="t-sep">◆</span></span>
+    <span class="t-item">Custom Builds <span class="t-sep">◆</span></span>
+    <span class="t-item">Analytics AI <span class="t-sep">◆</span></span>
+    <span class="t-item">Integrações <span class="t-sep">◆</span></span>
+    <span class="t-item">Automação de Processos <span class="t-sep">◆</span></span>
+    <span class="t-item">Agentes LLM <span class="t-sep">◆</span></span>
+    <span class="t-item">Mobile Apps <span class="t-sep">◆</span></span>
+    <span class="t-item">Document AI <span class="t-sep">◆</span></span>
+    <span class="t-item">Voice AI <span class="t-sep">◆</span></span>
+    <span class="t-item">Custom Builds <span class="t-sep">◆</span></span>
+    <span class="t-item">Analytics AI <span class="t-sep">◆</span></span>
+    <span class="t-item">Integrações <span class="t-sep">◆</span></span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-v"><span id="c1">0</span><s>%</s></div>
+    <div class="stat-l">Redução de trabalho manual nos primeiros 90 dias</div>
+  </div>
+  <div class="stat">
+    <div class="stat-v"><span id="c2">0</span><s>h</s></div>
+    <div class="stat-l">Operação contínua sem falhas ou interrupções</div>
+  </div>
+  <div class="stat">
+    <div class="stat-v"><span id="c3">0</span><s>×</s></div>
+    <div class="stat-l">Capacidade da equipa sem aumentar headcount</div>
+  </div>
+  <div class="stat">
+    <div class="stat-v">&lt;<span id="c4">0</span><s style="font-size:22px">sem</s></div>
+    <div class="stat-l">Da primeira reunião ao deploy em produção</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="sec" id="servicos">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey">O que construímos</div>
+      <div class="sec-ti">Serviços</div>
+    </div>
+    <div class="sec-ct">07 áreas de especialização</div>
+  </div>
+
+  <div class="svc-list">
+    <div class="svc">
+      <div class="svc-n">01</div>
+      <div>
+        <div class="svc-nm">Automação de Processos com AI</div>
+        <div class="svc-ds">Transformamos fluxos manuais em pipelines autónomos. Integrações entre sistemas, aprovações automáticas e transferência de dados — o trabalho acontece sem ninguém precisar de carregar em botões.</div>
+        <div class="svc-tags"><span class="svc-tag">n8n</span><span class="svc-tag">Make</span><span class="svc-tag">RPA</span><span class="svc-tag">Webhooks</span><span class="svc-tag">API Integration</span></div>
+      </div>
+      <div class="svc-arr">→</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">02</div>
+      <div>
+        <div class="svc-nm">Agentes LLM Customizados</div>
+        <div class="svc-ds">Agentes de linguagem que raciocinam, planeiam e executam tarefas complexas de forma autónoma. Construídos sobre GPT-4o, Claude ou modelos open-source — adaptados ao vocabulário e processos do teu negócio.</div>
+        <div class="svc-tags"><span class="svc-tag">LangChain</span><span class="svc-tag">OpenAI</span><span class="svc-tag">Claude</span><span class="svc-tag">RAG</span><span class="svc-tag">LangGraph</span></div>
+      </div>
+      <div class="svc-arr">→</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">03</div>
+      <div>
+        <div class="svc-nm">Mobile App Development</div>
+        <div class="svc-ds">Apps nativas e cross-platform para iOS e Android — do conceito ao lançamento nas stores. Design, engenharia e integração de AI quando faz sentido para o produto. Rápido, escalável, sem código descartável.</div>
+        <div class="svc-tags"><span class="svc-tag">React Native</span><span class="svc-tag">Flutter</span><span class="svc-tag">iOS</span><span class="svc-tag">Android</span><span class="svc-tag">App Store</span></div>
+      </div>
+      <div class="svc-arr">→</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">04</div>
+      <div>
+        <div class="svc-nm">Assistentes &amp; Voice AI</div>
+        <div class="svc-ds">Chatbots inteligentes e assistentes de voz para atendimento, suporte interno e qualificação de leads — em WhatsApp, web ou telefone. Disponíveis 24 horas, respondem em segundos, sem fila de espera.</div>
+        <div class="svc-tags"><span class="svc-tag">WhatsApp</span><span class="svc-tag">Voice AI</span><span class="svc-tag">ElevenLabs</span><span class="svc-tag">Whisper</span><span class="svc-tag">Web Chat</span></div>
+      </div>
+      <div class="svc-arr">→</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">05</div>
+      <div>
+        <div class="svc-nm">Document AI</div>
+        <div class="svc-ds">Faturas, contratos, relatórios e formulários processados automaticamente. Extração inteligente de dados, classificação e validação com precisão cirúrgica — em segundos, não horas.</div>
+        <div class="svc-tags"><span class="svc-tag">OCR</span><span class="svc-tag">Extração</span><span class="svc-tag">Classificação</span><span class="svc-tag">Validação</span><span class="svc-tag">PDF</span></div>
+      </div>
+      <div class="svc-arr">→</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">06</div>
+      <div>
+        <div class="svc-nm">Analytics &amp; Dashboards com AI</div>
+        <div class="svc-ds">Dashboards que não só mostram dados — interpretam-nos e geram recomendações. Relatórios automáticos, previsões de vendas, deteção de anomalias e alertas antes do problema acontecer.</div>
+        <div class="svc-tags"><span class="svc-tag">Dashboards</span><span class="svc-tag">Preditivo</span><span class="svc-tag">Relatórios Auto</span><span class="svc-tag">Alertas</span></div>
+      </div>
+      <div class="svc-arr">→</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">07</div>
+      <div>
+        <div class="svc-nm">Integrações &amp; Custom Builds</div>
+        <div class="svc-ds">CRM, ERP, e-commerce ou plataformas proprietárias — integramos tudo com uma camada de inteligência por cima. Nenhum sistema fica isolado; nenhum dado fica preso.</div>
+        <div class="svc-tags"><span class="svc-tag">CRM/ERP</span><span class="svc-tag">E-commerce</span><span class="svc-tag">APIs</span><span class="svc-tag">Custom</span></div>
+      </div>
+      <div class="svc-arr">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section class="sec sec-tint" id="setores">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey">Onde atuamos</div>
+      <div class="sec-ti">Setores</div>
+    </div>
+    <div class="sec-ct">Experiência transversal</div>
+  </div>
+  <div class="sectors-grid">
+    <div class="sector">
+      <div class="sec-icon-bg">🏥</div>
+      <div class="sec-icon">🏥</div>
+      <div class="sec-nm">Saúde &amp; Clínicas</div>
+      <div class="sec-ds">Triagem automática, agendamento inteligente, resumo de consultas e gestão de processos clínicos sem papelada desnecessária.</div>
+      <span class="sec-badge">Alto impacto</span>
+    </div>
+    <div class="sector">
+      <div class="sec-icon-bg">⚖️</div>
+      <div class="sec-icon">⚖️</div>
+      <div class="sec-nm">Jurídico &amp; Notarial</div>
+      <div class="sec-ds">Análise e revisão de contratos, pesquisa legal automatizada, geração de documentos e gestão de prazos processuais.</div>
+      <span class="sec-badge">Document AI</span>
+    </div>
+    <div class="sector">
+      <div class="sec-icon-bg">🏬</div>
+      <div class="sec-icon">🏬</div>
+      <div class="sec-nm">Retalho &amp; E-commerce</div>
+      <div class="sec-ds">Atendimento 24/7, gestão de devoluções, preços dinâmicos, recomendações personalizadas e controlo de stock automático.</div>
+      <span class="sec-badge">Revenue +</span>
+    </div>
+    <div class="sector">
+      <div class="sec-icon-bg">🏦</div>
+      <div class="sec-icon">🏦</div>
+      <div class="sec-nm">Financeiro &amp; Contabilidade</div>
+      <div class="sec-ds">Categorização automática de transações, reconciliação, relatórios fiscais e deteção de anomalias em tempo real.</div>
+      <span class="sec-badge">Compliance</span>
+    </div>
+    <div class="sector">
+      <div class="sec-icon-bg">🏗️</div>
+      <div class="sec-icon">🏗️</div>
+      <div class="sec-nm">Imobiliário &amp; Construção</div>
+      <div class="sec-ds">Lead scoring automático, respostas instantâneas a pedidos, análise de projetos e gestão documental de obras.</div>
+      <span class="sec-badge">Lead AI</span>
+    </div>
+    <div class="sector">
+      <div class="sec-icon-bg">👥</div>
+      <div class="sec-icon">👥</div>
+      <div class="sec-nm">RH &amp; Recrutamento</div>
+      <div class="sec-ds">Triagem de CVs, onboarding automático, assistente interno de RH e relatórios de performance gerados automaticamente.</div>
+      <span class="sec-badge">HR Tech</span>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="sec">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey">O impacto real</div>
+      <div class="sec-ti">Antes vs. Depois</div>
+    </div>
+  </div>
+  <div class="ba-grid">
+    <div class="ba-col before">
+      <div class="ba-head">
+        <div class="ba-dot-b"></div>
+        <div class="ba-label">Sem OracleBusiness</div>
+      </div>
+      <div class="ba-items">
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-repeat"/></svg></div><div class="ba-txt"><strong>Horas perdidas em tarefas repetitivas</strong>A equipa gasta 60-70% do tempo em trabalho que não requer julgamento humano.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg></div><div class="ba-txt"><strong>Atendimento limitado ao horário de trabalho</strong>Clientes ficam sem resposta fora das 9h-18h. Oportunidades perdidas à noite e ao fim de semana.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-x-circle"/></svg></div><div class="ba-txt"><strong>Erros humanos e retrabalho constante</strong>Dados copiados manualmente entre sistemas, inconsistências e horas a corrigir erros evitáveis.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-users"/></svg></div><div class="ba-txt"><strong>Escalar significa contratar mais</strong>Cada aumento de volume exige mais headcount — custos fixos que crescem proporcionalmente.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-file-clock"/></svg></div><div class="ba-txt"><strong>Decisões baseadas em relatórios desatualizados</strong>Dados com dias de atraso, construídos manualmente, que chegam tarde demais para ser úteis.</div></div>
+      </div>
+    </div>
+    <div class="ba-mid">→</div>
+    <div class="ba-col after">
+      <div class="ba-head">
+        <div class="ba-dot-a"></div>
+        <div class="ba-label">Com OracleBusiness</div>
+      </div>
+      <div class="ba-items">
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-bolt"/></svg></div><div class="ba-txt"><strong>Processos que correm sozinhos</strong>A equipa foca-se no que realmente importa. O sistema trata do resto automaticamente, sem falhas.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-moon"/></svg></div><div class="ba-txt"><strong>Atendimento 24/7, 365 dias por ano</strong>Clientes recebem resposta em segundos a qualquer hora. Nenhuma oportunidade fica sem resposta.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg></div><div class="ba-txt"><strong>Zero erros na transferência de dados</strong>Sistemas sincronizados em tempo real, validação automática. Retrabalho praticamente eliminado.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-rocket"/></svg></div><div class="ba-txt"><strong>Escalas sem aumentar custos fixos</strong>O volume pode triplicar. O custo operacional mantém-se. Margem cresce com o negócio.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-chart"/></svg></div><div class="ba-txt"><strong>Insights em tempo real, sempre atualizados</strong>Dashboards automáticos com dados ao minuto. Decisões baseadas em factos, não em intuições.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec sec-tint" id="processo">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey">Processo</div>
+      <div class="sec-ti">Como trabalhamos</div>
+    </div>
+  </div>
+  <div class="how-grid">
+    <div class="how-c">
+      <div class="how-n">01</div>
+      <div class="how-t">Diagnóstico</div>
+      <div class="how-d">Reunião de 60 minutos onde mapeamos os teus processos, identificamos as maiores ineficiências e definimos onde a AI gera mais ROI imediato.</div>
+    </div>
+    <div class="how-c">
+      <div class="how-n">02</div>
+      <div class="how-t">Proposta técnica</div>
+      <div class="how-d">Entregamos um plano detalhado: arquitetura, tecnologias, cronograma e estimativa de impacto — antes de qualquer comprometimento financeiro.</div>
+    </div>
+    <div class="how-c">
+      <div class="how-n">03</div>
+      <div class="how-t">Build &amp; Deploy</div>
+      <div class="how-d">Desenvolvimento em ciclos curtos de 1-2 semanas com feedback contínuo. Em produção rapidamente, sem surpresas no final do projeto.</div>
+    </div>
+    <div class="how-c">
+      <div class="how-n">04</div>
+      <div class="how-t">Crescimento contínuo</div>
+      <div class="how-d">Monitorização, otimizações e novas funcionalidades mês a mês. O sistema melhora com dados reais — não para depois do lançamento.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENT MODELS -->
+<section class="sec" id="precos">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey">Modelos de trabalho</div>
+      <div class="sec-ti">Como podemos colaborar</div>
+    </div>
+  </div>
+  <div class="eng-grid">
+    <div class="eng">
+      <div class="eng-icon"><svg viewBox="0 0 24 24"><use href="#ic-target"/></svg></div>
+      <div class="eng-nm">Projeto</div>
+      <div class="eng-sub">Entrega única</div>
+      <div class="eng-ds">Scope definido, preço fixo, prazo acordado. Ideal para automatizar um processo específico ou lançar uma app. Sabes exatamente o que vais receber e quando.</div>
+      <div class="eng-perks">
+        <div class="eng-perk"><span class="ep-dot"></span>Orçamento previsível e sem surpresas</div>
+        <div class="eng-perk"><span class="ep-dot"></span>Entrega em 4 a 8 semanas</div>
+        <div class="eng-perk"><span class="ep-dot"></span>Suporte pós-lançamento incluído (30 dias)</div>
+      </div>
+      <a class="eng-cta" href="#contacto">Pedir orçamento</a>
+    </div>
+    <div class="eng featured">
+      <div class="eng-badge">Mais popular</div>
+      <div class="eng-icon"><svg viewBox="0 0 24 24"><use href="#ic-cycle"/></svg></div>
+      <div class="eng-nm">Retainer</div>
+      <div class="eng-sub">Parceria mensal</div>
+      <div class="eng-ds">A OracleBusiness como parte da tua equipa. Desenvolvimento contínuo, manutenção, melhorias mensais e suporte prioritário. Para empresas que querem evoluir constantemente.</div>
+      <div class="eng-perks">
+        <div class="eng-perk"><span class="ep-dot"></span>Capacidade dedicada mês a mês</div>
+        <div class="eng-perk"><span class="ep-dot"></span>Resposta prioritária em 4 horas</div>
+        <div class="eng-perk"><span class="ep-dot"></span>Revisão mensal de performance e roadmap</div>
+      </div>
+      <a class="eng-cta" href="#contacto">Falar sobre retainer</a>
+    </div>
+    <div class="eng">
+      <div class="eng-icon"><svg viewBox="0 0 24 24"><use href="#ic-trend"/></svg></div>
+      <div class="eng-nm">Revenue Share</div>
+      <div class="eng-sub">Alinhamento total</div>
+      <div class="eng-ds">Investimento inicial reduzido em troca de uma percentagem das poupanças ou receita gerada pela automação. Só ganhamos se tu ganhares.</div>
+      <div class="eng-perks">
+        <div class="eng-perk"><span class="ep-dot"></span>Entrada acessível para projetos de alto impacto</div>
+        <div class="eng-perk"><span class="ep-dot"></span>Incentivo máximo para entregar resultados reais</div>
+        <div class="eng-perk"><span class="ep-dot"></span>Avaliado caso a caso</div>
+      </div>
+      <a class="eng-cta" href="#contacto">Explorar este modelo</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec sec-tint">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey">Prova social</div>
+      <div class="sec-ti">O que dizem os clientes</div>
+    </div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-q">Automatizámos todo o processo de faturação e reconciliação. O que demorava 3 dias por mês agora acontece em menos de 2 horas — sem erros.</div>
+      <div class="testi-auth">
+        <div class="testi-av">MF</div>
+        <div><div class="testi-nm">Miguel Ferreira</div><div class="testi-co">CEO · Grupo Ferreira Logística</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-q">O assistente de WhatsApp que criaram responde a 80% das perguntas dos nossos clientes sem qualquer intervenção humana. A satisfação do cliente subiu 40%.</div>
+      <div class="testi-auth">
+        <div class="testi-av">AC</div>
+        <div><div class="testi-nm">Ana Carvalho</div><div class="testi-co">Diretora Comercial · MediCenter</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-q">A app mobile que desenvolveram em 6 semanas já tem 2.000 utilizadores ativos. A qualidade do código e a velocidade de entrega surpreenderam toda a equipa.</div>
+      <div class="testi-auth">
+        <div class="testi-av">RS</div>
+        <div><div class="testi-nm">Rui Santos</div><div class="testi-co">CTO · Imov360</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="logos-row">
+    <div class="logo-item">MediCenter</div>
+    <div class="logo-item">Grupo Ferreira</div>
+    <div class="logo-item">Imov360</div>
+    <div class="logo-item">LexPartners</div>
+    <div class="logo-item">RetailPro</div>
+    <div class="logo-item">FinanceHub</div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="sec">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey">A nossa convicção</div>
+      <div class="sec-ti">Porquê OracleBusiness</div>
+    </div>
+  </div>
+  <div class="manifesto">
+    <div class="mq">
+      Não vendemos software.<br><br>
+      Vendemos <em>tempo de volta</em><br>
+      e capacidade<br>de escalar.
+    </div>
+    <div>
+      <p class="mr-desc">Enquanto os teus concorrentes ainda dependem de processos manuais, as empresas que trabalham connosco operam com sistemas que aprendem, adaptam e executam — sem parar. Construímos a infraestrutura que separa as empresas do futuro das do passado.</p>
+      <div class="mr-pts">
+        <div class="mr-pt"><span class="mr-dot"></span>Sistemas que nunca dormem, nunca erram, nunca param.</div>
+        <div class="mr-pt"><span class="mr-dot"></span>Solução à medida — não um produto genérico adaptado a martelo.</div>
+        <div class="mr-pt"><span class="mr-dot"></span>Deploy rápido e seguro — em semanas, não em trimestres.</div>
+        <div class="mr-pt"><span class="mr-dot"></span>O que hoje automatiza 10 tarefas, amanhã automatiza 1000.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="sec sec-tint">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey">Tecnologia</div>
+      <div class="sec-ti">Stack</div>
+    </div>
+  </div>
+  <div class="stack-wrap">
+    <div class="sg">
+      <div class="sg-t">LLMs &amp; AI</div>
+      <div class="sg-pills">
+        <span class="sp h">OpenAI GPT-4o</span>
+        <span class="sp h">Anthropic Claude</span>
+        <span class="sp h">Google Gemini</span>
+        <span class="sp">LangChain</span>
+        <span class="sp">LangGraph</span>
+        <span class="sp">Whisper</span>
+        <span class="sp">ElevenLabs</span>
+        <span class="sp">Pinecone</span>
+      </div>
+    </div>
+    <div class="sg">
+      <div class="sg-t">Automação &amp; Mobile</div>
+      <div class="sg-pills">
+        <span class="sp h">n8n</span>
+        <span class="sp h">React Native</span>
+        <span class="sp h">Flutter</span>
+        <span class="sp">Make</span>
+        <span class="sp">Evolution API</span>
+        <span class="sp">Twilio</span>
+        <span class="sp">Zapier</span>
+      </div>
+    </div>
+    <div class="sg">
+      <div class="sg-t">Infraestrutura &amp; Backend</div>
+      <div class="sg-pills">
+        <span class="sp h">Supabase</span>
+        <span class="sp h">Next.js</span>
+        <span class="sp h">Python</span>
+        <span class="sp">PostgreSQL</span>
+        <span class="sp">Vercel</span>
+        <span class="sp">Railway</span>
+        <span class="sp">Docker</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq">
+  <div class="sec-hd">
+    <div>
+      <div class="sec-ey">Dúvidas frequentes</div>
+      <div class="sec-ti">FAQ</div>
+    </div>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Quanto tempo demora a implementar uma solução? <span class="faq-arr">+</span></div>
+      <div class="faq-a">A maioria dos projetos vai a produção entre 4 a 8 semanas. Automações mais simples podem ser entregues em 2 semanas. Projetos de maior escala (apps mobile completas, sistemas multi-agente) levam entre 8 a 16 semanas. Na reunião inicial definimos um cronograma realista baseado no teu caso específico — nunca prometemos datas que não conseguimos cumprir.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Preciso de ter uma equipa técnica interna? <span class="faq-arr">+</span></div>
+      <div class="faq-a">Não. Trabalhamos com empresas que não têm nenhum técnico interno. Tratamos de toda a implementação, deploy e manutenção. Se já tens uma equipa de IT, também conseguimos integrar e trabalhar em conjunto — o modelo adapta-se à tua realidade.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Os meus dados ficam seguros? <span class="faq-arr">+</span></div>
+      <div class="faq-a">Segurança é uma prioridade desde o primeiro dia. Trabalhamos com encriptação em trânsito e em repouso, controlo de acessos rigoroso e conformidade com o RGPD. Os teus dados nunca são usados para treinar modelos externos. Podemos também trabalhar com soluções on-premise ou em cloud privada se necessário.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Qual é o investimento mínimo para começar? <span class="faq-arr">+</span></div>
+      <div class="faq-a">Depende do scope do projeto. Automações pontuais e assistentes simples podem partir de valores acessíveis. Projetos de maior complexidade têm um investimento proporcional ao impacto gerado. Em todos os casos, fazemos uma estimativa de ROI antes de qualquer compromisso — para que percebas o retorno esperado antes de decidires.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">O que acontece depois do projeto estar entregue? <span class="faq-arr">+</span></div>
+      <div class="faq-a">Todos os projetos incluem suporte pós-lançamento de 30 dias. A partir daí, podes optar por um retainer mensal para manutenção e evolução contínua, ou um contrato de suporte reativo. Não entregamos e desaparecemos — ficamos disponíveis para garantir que o sistema continua a funcionar e a melhorar.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Trabalham com empresas pequenas ou só grandes empresas? <span class="faq-arr">+</span></div>
+      <div class="faq-a">Trabalhamos com PMEs, startups e empresas de média dimensão. Na verdade, é onde o impacto da automação é mais visível e imediato — uma equipa de 5 pessoas com os processos certos consegue operar como uma equipa de 20. O tamanho da empresa não determina se a AI faz sentido; o volume de processos repetitivos sim.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Podem integrar com os sistemas que já uso (CRM, ERP, etc.)? <span class="faq-arr">+</span></div>
+      <div class="faq-a">Sim. Integramos com praticamente qualquer sistema que tenha API — Salesforce, HubSpot, SAP, Odoo, Primavera, e muitos outros. Mesmo sistemas legados sem API têm soluções via RPA. Na reunião de diagnóstico mapeamos todas as integrações necessárias e identificamos possíveis limitações antes de começarmos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="sec" id="contacto" style="border-bottom:none">
+  <div class="cta-block">
+    <div class="cta-left">
+      <div class="cta-eyebrow">Pronto para começar?</div>
+      <div class="cta-h">Fala connosco.<br>A primeira reunião<br>é gratuita.</div>
+      <p class="cta-sub">Numa sessão de 60 minutos analisamos os teus processos, identificamos onde a AI gera mais impacto e apresentamos uma estimativa de ROI — sem compromisso.</p>
+    </div>
+    <form class="cta-form" id="contactForm">
+      <div class="form-row">
+        <input class="f-inp" type="text" name="nome" placeholder="Nome" required>
+        <input class="f-inp" type="text" name="empresa" placeholder="Empresa" required>
+      </div>
+      <input class="f-inp" type="email" name="email" placeholder="Email profissional" required>
+      <input class="f-inp" type="tel" name="telefone" placeholder="Telefone (opcional)">
+      <select class="f-sel" name="servico">
+        <option value="" disabled selected>Qual o serviço de interesse?</option>
+        <option>Automação de Processos</option>
+        <option>Agentes LLM</option>
+        <option>Mobile App</option>
+        <option>Assistente / Chatbot</option>
+        <option>Document AI</option>
+        <option>Analytics com AI</option>
+        <option>Não tenho a certeza — quero explorar</option>
+      </select>
+      <textarea class="f-ta" name="mensagem" placeholder="Descreve brevemente o teu desafio ou processo que queres automatizar..."></textarea>
+      <button class="f-btn" type="submit">Agendar reunião gratuita →</button>
+      <div class="f-note">Resposta em menos de 24 horas · Sem spam · Sem compromisso</div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">
+    <svg class="f-icon" viewBox="0 0 200 200" color="#B91C3C">
+      <use href="#globe"/>
+    </svg>
+    <div>
+      <div class="f-nm">OracleBusiness</div>
+      <div class="f-sb">Software Lab</div>
+    </div>
+  </div>
+  <div class="f-links">
+    <a class="f-lk" href="#servicos">Serviços</a>
+    <a class="f-lk" href="#setores">Setores</a>
+    <a class="f-lk" href="#processo">Processo</a>
+    <a class="f-lk" href="#faq">FAQ</a>
+    <a class="f-lk" href="#contacto">Contacto</a>
+  </div>
+  <div class="f-right">
+    <span class="f-live"></span>
+    Lisboa, Portugal &nbsp;·&nbsp; © 2025 OracleBusiness
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

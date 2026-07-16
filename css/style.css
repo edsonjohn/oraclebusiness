@@ -24,7 +24,7 @@ html { scroll-behavior: smooth; }
 body {
   background:
     radial-gradient(rgba(16, 20, 28, 0.05) 1px, transparent 1px) 0 0 / 24px 24px fixed,
-    var(--bg);
+    linear-gradient(150deg, #FFFFFF 0%, #FAF9FA 35%, #F3F1F2 65%, #FBEEF0 100%) fixed;
   color: var(--text);
   font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   font-size: 15px;
@@ -92,7 +92,7 @@ nav {
   border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
-  min-height: 90vh;
+  min-height: 78vh;
 }
 
 .hero::before {
@@ -102,8 +102,8 @@ nav {
   background-image: radial-gradient(rgba(16, 20, 28, 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
   background-position: 0 0;
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 70% 40%, #000 0%, transparent 75%);
-  mask-image: radial-gradient(ellipse 70% 70% at 70% 40%, #000 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 95% 90% at 55% 45%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(ellipse 95% 90% at 55% 45%, #000 0%, transparent 78%);
   pointer-events: none;
 }
 
@@ -154,25 +154,6 @@ nav {
 @keyframes heroIn {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.h-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 32px;
-}
-
-.h-pulse {
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {

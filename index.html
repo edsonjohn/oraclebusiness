@@ -9,6 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('ob-theme');
+      var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
 </head>
 <body>
 
@@ -135,10 +142,58 @@
       <rect x="15.8" y="3" width="3.2" height="18" rx="0.6"/>
     </g>
   </symbol>
+  <symbol id="ic-arrow-right" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 12h16"/>
+      <path d="M14 6l6 6-6 6"/>
+    </g>
+  </symbol>
+  <symbol id="ic-health" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M12 8v8M8 12h8"/>
+    </g>
+  </symbol>
+  <symbol id="ic-scale" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v17"/>
+      <path d="M7 7h10"/>
+      <path d="M8 21h8"/>
+      <path d="M4 13a3 3 0 0 0 6 0L7 7l-3 6z"/>
+      <path d="M14 13a3 3 0 0 0 6 0l-3-6-3 6z"/>
+    </g>
+  </symbol>
+  <symbol id="ic-bag" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 8h12l-1 12.5a1 1 0 0 1-1 .9H8a1 1 0 0 1-1-.9L6 8z"/>
+      <path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>
+    </g>
+  </symbol>
+  <symbol id="ic-bank" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 10l9-6 9 6"/>
+      <path d="M5 10v9M10 10v9M14 10v9M19 10v9"/>
+      <path d="M3 21h18"/>
+    </g>
+  </symbol>
+  <symbol id="ic-building" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 21V9l8-5 8 5v12"/>
+      <path d="M4 21h16"/>
+      <path d="M10 21v-6h4v6"/>
+    </g>
+  </symbol>
+  <symbol id="ic-sun" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4.2"/>
+      <path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+    </g>
+  </symbol>
 </svg>
 
 <!-- MASTHEAD -->
 <div class="masthead"></div>
+<div class="scroll-progress"><div class="scroll-progress-bar" id="scrollBar"></div></div>
 
 <!-- NAV -->
 <nav>
@@ -152,70 +207,78 @@
     </div>
   </div>
   <div class="n-links">
-    <a class="n-link" href="#servicos">Serviços</a>
-    <a class="n-link" href="#setores">Setores</a>
-    <a class="n-link" href="#processo">Processo</a>
-    <a class="n-link" href="#precos">Preços</a>
-    <a class="n-link" href="#faq">FAQ</a>
+    <a class="n-link" data-i18n="nav.services" href="#servicos">Serviços</a>
+    <a class="n-link" data-i18n="nav.sectors" href="#setores">Setores</a>
+    <a class="n-link" data-i18n="nav.process" href="#processo">Processo</a>
+    <a class="n-link" data-i18n="nav.pricing" href="#precos">Preços</a>
+    <a class="n-link" data-i18n="nav.faq" href="#faq">FAQ</a>
   </div>
-  <button class="n-btn" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
-    Falar connosco
-  </button>
+  <div class="n-actions">
+    <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro">
+      <svg class="icon-sun" viewBox="0 0 24 24"><use href="#ic-sun"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24"><use href="#ic-moon"/></svg>
+    </button>
+    <button class="n-btn" data-i18n="nav.cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+      Fale connosco
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="heroSection">
   <div>
     <h1>
-      Sistemas<br>
-      <span class="dim">que</span><br>
-      <span class="red">pensam.</span>
+      <span data-i18n="hero.title1">Sistemas</span><br>
+      <span class="dim" data-i18n="hero.title2">que</span><br>
+      <span class="red" data-i18n="hero.title3">pensam.</span>
     </h1>
   </div>
   <div class="h-right">
     <div class="h-bar"></div>
-    <p class="h-desc">
+    <p class="h-desc" data-i18n="hero.desc">
       Construímos automação inteligente, agentes de linguagem e apps mobile que eliminam o trabalho repetitivo e amplificam o que a tua equipa consegue fazer — em semanas, não meses.
     </p>
     <div class="h-btns">
-      <button class="btn-r" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+      <button class="btn-r" data-i18n="hero.btn1" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
         Iniciar projeto →
       </button>
-      <button class="btn-g" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">
+      <button class="btn-g" data-i18n="hero.btn2" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">
         Ver serviços
       </button>
     </div>
     <div class="h-proof">
-      <span>Deploy em &lt;6 semanas</span>
+      <span data-i18n="hero.proof1">Deploy em &lt;6 semanas</span>
       <div class="h-proof-sep"></div>
-      <span>B2B · Portugal &amp; Europa</span>
+      <span data-i18n="hero.proof2">B2B · Portugal &amp; Europa</span>
       <div class="h-proof-sep"></div>
-      <span>Projetos à medida</span>
+      <span data-i18n="hero.proof3">Projetos à medida</span>
     </div>
   </div>
   <div class="hero-glow"></div>
   <div class="hero-network"></div>
+  <div class="hero-spotlight"></div>
 </section>
 
 <!-- TICKER -->
 <div class="ticker-bar">
   <div class="ticker">
-    <span class="t-item">Automação de Processos <span class="t-sep">◆</span></span>
-    <span class="t-item">Agentes LLM <span class="t-sep">◆</span></span>
-    <span class="t-item">Mobile Apps <span class="t-sep">◆</span></span>
-    <span class="t-item">Document AI <span class="t-sep">◆</span></span>
-    <span class="t-item">Voice AI <span class="t-sep">◆</span></span>
-    <span class="t-item">Custom Builds <span class="t-sep">◆</span></span>
-    <span class="t-item">Analytics AI <span class="t-sep">◆</span></span>
-    <span class="t-item">Integrações <span class="t-sep">◆</span></span>
-    <span class="t-item">Automação de Processos <span class="t-sep">◆</span></span>
-    <span class="t-item">Agentes LLM <span class="t-sep">◆</span></span>
-    <span class="t-item">Mobile Apps <span class="t-sep">◆</span></span>
-    <span class="t-item">Document AI <span class="t-sep">◆</span></span>
-    <span class="t-item">Voice AI <span class="t-sep">◆</span></span>
-    <span class="t-item">Custom Builds <span class="t-sep">◆</span></span>
-    <span class="t-item">Analytics AI <span class="t-sep">◆</span></span>
-    <span class="t-item">Integrações <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.1">Automação de Processos</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.2">Agentes LLM</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.3">Mobile Apps</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.4">Document AI</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.5">Voice AI</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.6">Custom Builds</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.7">Analytics AI</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.8">Integrações</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.1">Automação de Processos</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.2">Agentes LLM</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.3">Mobile Apps</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.4">Document AI</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.5">Voice AI</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.6">Custom Builds</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.7">Analytics AI</span> <span class="t-sep">◆</span></span>
+    <span class="t-item"><span data-i18n="ticker.8">Integrações</span> <span class="t-sep">◆</span></span>
   </div>
 </div>
 
@@ -223,19 +286,19 @@
 <div class="stats">
   <div class="stat">
     <div class="stat-v"><span id="c1">0</span><s>%</s></div>
-    <div class="stat-l">Redução de trabalho manual nos primeiros 90 dias</div>
+    <div class="stat-l" data-i18n="stats.1">Redução de trabalho manual nos primeiros 90 dias</div>
   </div>
   <div class="stat">
     <div class="stat-v"><span id="c2">0</span><s>h</s></div>
-    <div class="stat-l">Operação contínua sem falhas ou interrupções</div>
+    <div class="stat-l" data-i18n="stats.2">Operação contínua sem falhas ou interrupções</div>
   </div>
   <div class="stat">
     <div class="stat-v"><span id="c3">0</span><s>×</s></div>
-    <div class="stat-l">Capacidade da equipa sem aumentar headcount</div>
+    <div class="stat-l" data-i18n="stats.3">Capacidade da equipa sem aumentar headcount</div>
   </div>
   <div class="stat">
-    <div class="stat-v">&lt;<span id="c4">0</span><s style="font-size:22px">sem</s></div>
-    <div class="stat-l">Da primeira reunião ao deploy em produção</div>
+    <div class="stat-v">&lt;<span id="c4">0</span><s style="font-size:22px" data-i18n="stats.4unit">sem</s></div>
+    <div class="stat-l" data-i18n="stats.4">Da primeira reunião ao deploy em produção</div>
   </div>
 </div>
 
@@ -243,75 +306,75 @@
 <section class="sec" id="servicos">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey">O que construímos</div>
-      <div class="sec-ti">Serviços</div>
+      <div class="sec-ey" data-i18n="services.eyebrow">O que construímos</div>
+      <div class="sec-ti" data-i18n="services.title">Serviços</div>
     </div>
-    <div class="sec-ct">07 áreas de especialização</div>
+    <div class="sec-ct" data-i18n="services.count">07 áreas de especialização</div>
   </div>
 
   <div class="svc-list">
     <div class="svc">
       <div class="svc-n">01</div>
       <div>
-        <div class="svc-nm">Automação de Processos com AI</div>
-        <div class="svc-ds">Transformamos fluxos manuais em pipelines autónomos. Integrações entre sistemas, aprovações automáticas e transferência de dados — o trabalho acontece sem ninguém precisar de carregar em botões.</div>
+        <div class="svc-nm" data-i18n="svc1.name">Automação de Processos com AI</div>
+        <div class="svc-ds" data-i18n="svc1.desc">Transformamos fluxos manuais em pipelines autónomos. Integrações entre sistemas, aprovações automáticas e transferência de dados — o trabalho acontece sem ninguém precisar de carregar em botões.</div>
         <div class="svc-tags"><span class="svc-tag">n8n</span><span class="svc-tag">Make</span><span class="svc-tag">RPA</span><span class="svc-tag">Webhooks</span><span class="svc-tag">API Integration</span></div>
       </div>
-      <div class="svc-arr">→</div>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><use href="#ic-arrow-right"/></svg></div>
     </div>
     <div class="svc">
       <div class="svc-n">02</div>
       <div>
-        <div class="svc-nm">Agentes LLM Customizados</div>
-        <div class="svc-ds">Agentes de linguagem que raciocinam, planeiam e executam tarefas complexas de forma autónoma. Construídos sobre GPT-4o, Claude ou modelos open-source — adaptados ao vocabulário e processos do teu negócio.</div>
+        <div class="svc-nm" data-i18n="svc2.name">Agentes LLM Customizados</div>
+        <div class="svc-ds" data-i18n="svc2.desc">Agentes de linguagem que raciocinam, planeiam e executam tarefas complexas de forma autónoma. Construídos sobre GPT-4o, Claude ou modelos open-source — adaptados ao vocabulário e processos do teu negócio.</div>
         <div class="svc-tags"><span class="svc-tag">LangChain</span><span class="svc-tag">OpenAI</span><span class="svc-tag">Claude</span><span class="svc-tag">RAG</span><span class="svc-tag">LangGraph</span></div>
       </div>
-      <div class="svc-arr">→</div>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><use href="#ic-arrow-right"/></svg></div>
     </div>
     <div class="svc">
       <div class="svc-n">03</div>
       <div>
-        <div class="svc-nm">Mobile App Development</div>
-        <div class="svc-ds">Apps nativas e cross-platform para iOS e Android — do conceito ao lançamento nas stores. Design, engenharia e integração de AI quando faz sentido para o produto. Rápido, escalável, sem código descartável.</div>
+        <div class="svc-nm" data-i18n="svc3.name">Mobile App Development</div>
+        <div class="svc-ds" data-i18n="svc3.desc">Apps nativas e cross-platform para iOS e Android — do conceito ao lançamento nas stores. Design, engenharia e integração de AI quando faz sentido para o produto. Rápido, escalável, sem código descartável.</div>
         <div class="svc-tags"><span class="svc-tag">React Native</span><span class="svc-tag">Flutter</span><span class="svc-tag">iOS</span><span class="svc-tag">Android</span><span class="svc-tag">App Store</span></div>
       </div>
-      <div class="svc-arr">→</div>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><use href="#ic-arrow-right"/></svg></div>
     </div>
     <div class="svc">
       <div class="svc-n">04</div>
       <div>
-        <div class="svc-nm">Assistentes &amp; Voice AI</div>
-        <div class="svc-ds">Chatbots inteligentes e assistentes de voz para atendimento, suporte interno e qualificação de leads — em WhatsApp, web ou telefone. Disponíveis 24 horas, respondem em segundos, sem fila de espera.</div>
+        <div class="svc-nm" data-i18n="svc4.name">Assistentes &amp; Voice AI</div>
+        <div class="svc-ds" data-i18n="svc4.desc">Chatbots inteligentes e assistentes de voz para atendimento, suporte interno e qualificação de leads — em WhatsApp, web ou telefone. Disponíveis 24 horas, respondem em segundos, sem fila de espera.</div>
         <div class="svc-tags"><span class="svc-tag">WhatsApp</span><span class="svc-tag">Voice AI</span><span class="svc-tag">ElevenLabs</span><span class="svc-tag">Whisper</span><span class="svc-tag">Web Chat</span></div>
       </div>
-      <div class="svc-arr">→</div>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><use href="#ic-arrow-right"/></svg></div>
     </div>
     <div class="svc">
       <div class="svc-n">05</div>
       <div>
-        <div class="svc-nm">Document AI</div>
-        <div class="svc-ds">Faturas, contratos, relatórios e formulários processados automaticamente. Extração inteligente de dados, classificação e validação com precisão cirúrgica — em segundos, não horas.</div>
+        <div class="svc-nm" data-i18n="svc5.name">Document AI</div>
+        <div class="svc-ds" data-i18n="svc5.desc">Faturas, contratos, relatórios e formulários processados automaticamente. Extração inteligente de dados, classificação e validação com precisão cirúrgica — em segundos, não horas.</div>
         <div class="svc-tags"><span class="svc-tag">OCR</span><span class="svc-tag">Extração</span><span class="svc-tag">Classificação</span><span class="svc-tag">Validação</span><span class="svc-tag">PDF</span></div>
       </div>
-      <div class="svc-arr">→</div>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><use href="#ic-arrow-right"/></svg></div>
     </div>
     <div class="svc">
       <div class="svc-n">06</div>
       <div>
-        <div class="svc-nm">Analytics &amp; Dashboards com AI</div>
-        <div class="svc-ds">Dashboards que não só mostram dados — interpretam-nos e geram recomendações. Relatórios automáticos, previsões de vendas, deteção de anomalias e alertas antes do problema acontecer.</div>
+        <div class="svc-nm" data-i18n="svc6.name">Analytics &amp; Dashboards com AI</div>
+        <div class="svc-ds" data-i18n="svc6.desc">Dashboards que não só mostram dados — interpretam-nos e geram recomendações. Relatórios automáticos, previsões de vendas, deteção de anomalias e alertas antes do problema acontecer.</div>
         <div class="svc-tags"><span class="svc-tag">Dashboards</span><span class="svc-tag">Preditivo</span><span class="svc-tag">Relatórios Auto</span><span class="svc-tag">Alertas</span></div>
       </div>
-      <div class="svc-arr">→</div>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><use href="#ic-arrow-right"/></svg></div>
     </div>
     <div class="svc">
       <div class="svc-n">07</div>
       <div>
-        <div class="svc-nm">Integrações &amp; Custom Builds</div>
-        <div class="svc-ds">CRM, ERP, e-commerce ou plataformas proprietárias — integramos tudo com uma camada de inteligência por cima. Nenhum sistema fica isolado; nenhum dado fica preso.</div>
+        <div class="svc-nm" data-i18n="svc7.name">Integrações &amp; Custom Builds</div>
+        <div class="svc-ds" data-i18n="svc7.desc">CRM, ERP, e-commerce ou plataformas proprietárias — integramos tudo com uma camada de inteligência por cima. Nenhum sistema fica isolado; nenhum dado fica preso.</div>
         <div class="svc-tags"><span class="svc-tag">CRM/ERP</span><span class="svc-tag">E-commerce</span><span class="svc-tag">APIs</span><span class="svc-tag">Custom</span></div>
       </div>
-      <div class="svc-arr">→</div>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><use href="#ic-arrow-right"/></svg></div>
     </div>
   </div>
 </section>
@@ -320,53 +383,53 @@
 <section class="sec sec-tint" id="setores">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey">Onde atuamos</div>
-      <div class="sec-ti">Setores</div>
+      <div class="sec-ey" data-i18n="sectors.eyebrow">Onde atuamos</div>
+      <div class="sec-ti" data-i18n="sectors.title">Setores</div>
     </div>
-    <div class="sec-ct">Experiência transversal</div>
+    <div class="sec-ct" data-i18n="sectors.count">Experiência transversal</div>
   </div>
   <div class="sectors-grid">
     <div class="sector">
-      <div class="sec-icon-bg">🏥</div>
-      <div class="sec-icon">🏥</div>
-      <div class="sec-nm">Saúde &amp; Clínicas</div>
-      <div class="sec-ds">Triagem automática, agendamento inteligente, resumo de consultas e gestão de processos clínicos sem papelada desnecessária.</div>
-      <span class="sec-badge">Alto impacto</span>
+      <svg class="sec-icon-bg" viewBox="0 0 24 24"><use href="#ic-health"/></svg>
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><use href="#ic-health"/></svg></div>
+      <div class="sec-nm" data-i18n="sec1.name">Saúde &amp; Clínicas</div>
+      <div class="sec-ds" data-i18n="sec1.desc">Triagem automática, agendamento inteligente, resumo de consultas e gestão de processos clínicos sem papelada desnecessária.</div>
+      <span class="sec-badge" data-i18n="sec1.badge">Alto impacto</span>
     </div>
     <div class="sector">
-      <div class="sec-icon-bg">⚖️</div>
-      <div class="sec-icon">⚖️</div>
-      <div class="sec-nm">Jurídico &amp; Notarial</div>
-      <div class="sec-ds">Análise e revisão de contratos, pesquisa legal automatizada, geração de documentos e gestão de prazos processuais.</div>
-      <span class="sec-badge">Document AI</span>
+      <svg class="sec-icon-bg" viewBox="0 0 24 24"><use href="#ic-scale"/></svg>
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><use href="#ic-scale"/></svg></div>
+      <div class="sec-nm" data-i18n="sec2.name">Jurídico &amp; Notarial</div>
+      <div class="sec-ds" data-i18n="sec2.desc">Análise e revisão de contratos, pesquisa legal automatizada, geração de documentos e gestão de prazos processuais.</div>
+      <span class="sec-badge" data-i18n="sec2.badge">Document AI</span>
     </div>
     <div class="sector">
-      <div class="sec-icon-bg">🏬</div>
-      <div class="sec-icon">🏬</div>
-      <div class="sec-nm">Retalho &amp; E-commerce</div>
-      <div class="sec-ds">Atendimento 24/7, gestão de devoluções, preços dinâmicos, recomendações personalizadas e controlo de stock automático.</div>
-      <span class="sec-badge">Revenue +</span>
+      <svg class="sec-icon-bg" viewBox="0 0 24 24"><use href="#ic-bag"/></svg>
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><use href="#ic-bag"/></svg></div>
+      <div class="sec-nm" data-i18n="sec3.name">Retalho &amp; E-commerce</div>
+      <div class="sec-ds" data-i18n="sec3.desc">Atendimento 24/7, gestão de devoluções, preços dinâmicos, recomendações personalizadas e controlo de stock automático.</div>
+      <span class="sec-badge" data-i18n="sec3.badge">Revenue +</span>
     </div>
     <div class="sector">
-      <div class="sec-icon-bg">🏦</div>
-      <div class="sec-icon">🏦</div>
-      <div class="sec-nm">Financeiro &amp; Contabilidade</div>
-      <div class="sec-ds">Categorização automática de transações, reconciliação, relatórios fiscais e deteção de anomalias em tempo real.</div>
-      <span class="sec-badge">Compliance</span>
+      <svg class="sec-icon-bg" viewBox="0 0 24 24"><use href="#ic-bank"/></svg>
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><use href="#ic-bank"/></svg></div>
+      <div class="sec-nm" data-i18n="sec4.name">Financeiro &amp; Contabilidade</div>
+      <div class="sec-ds" data-i18n="sec4.desc">Categorização automática de transações, reconciliação, relatórios fiscais e deteção de anomalias em tempo real.</div>
+      <span class="sec-badge" data-i18n="sec4.badge">Compliance</span>
     </div>
     <div class="sector">
-      <div class="sec-icon-bg">🏗️</div>
-      <div class="sec-icon">🏗️</div>
-      <div class="sec-nm">Imobiliário &amp; Construção</div>
-      <div class="sec-ds">Lead scoring automático, respostas instantâneas a pedidos, análise de projetos e gestão documental de obras.</div>
-      <span class="sec-badge">Lead AI</span>
+      <svg class="sec-icon-bg" viewBox="0 0 24 24"><use href="#ic-building"/></svg>
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><use href="#ic-building"/></svg></div>
+      <div class="sec-nm" data-i18n="sec5.name">Imobiliário &amp; Construção</div>
+      <div class="sec-ds" data-i18n="sec5.desc">Lead scoring automático, respostas instantâneas a pedidos, análise de projetos e gestão documental de obras.</div>
+      <span class="sec-badge" data-i18n="sec5.badge">Lead AI</span>
     </div>
     <div class="sector">
-      <div class="sec-icon-bg">👥</div>
-      <div class="sec-icon">👥</div>
-      <div class="sec-nm">RH &amp; Recrutamento</div>
-      <div class="sec-ds">Triagem de CVs, onboarding automático, assistente interno de RH e relatórios de performance gerados automaticamente.</div>
-      <span class="sec-badge">HR Tech</span>
+      <svg class="sec-icon-bg" viewBox="0 0 24 24"><use href="#ic-users"/></svg>
+      <div class="sec-icon"><svg viewBox="0 0 24 24"><use href="#ic-users"/></svg></div>
+      <div class="sec-nm" data-i18n="sec6.name">RH &amp; Recrutamento</div>
+      <div class="sec-ds" data-i18n="sec6.desc">Triagem de CVs, onboarding automático, assistente interno de RH e relatórios de performance gerados automaticamente.</div>
+      <span class="sec-badge" data-i18n="sec6.badge">HR Tech</span>
     </div>
   </div>
 </section>
@@ -375,36 +438,36 @@
 <section class="sec">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey">O impacto real</div>
-      <div class="sec-ti">Antes vs. Depois</div>
+      <div class="sec-ey" data-i18n="impact.eyebrow">O impacto real</div>
+      <div class="sec-ti" data-i18n="impact.title">Antes vs. Depois</div>
     </div>
   </div>
   <div class="ba-grid">
     <div class="ba-col before">
       <div class="ba-head">
         <div class="ba-dot-b"></div>
-        <div class="ba-label">Sem OracleBusiness</div>
+        <div class="ba-label" data-i18n="impact.before.label">Sem OracleBusiness</div>
       </div>
       <div class="ba-items">
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-repeat"/></svg></div><div class="ba-txt"><strong>Horas perdidas em tarefas repetitivas</strong>A equipa gasta 60-70% do tempo em trabalho que não requer julgamento humano.</div></div>
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg></div><div class="ba-txt"><strong>Atendimento limitado ao horário de trabalho</strong>Clientes ficam sem resposta fora das 9h-18h. Oportunidades perdidas à noite e ao fim de semana.</div></div>
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-x-circle"/></svg></div><div class="ba-txt"><strong>Erros humanos e retrabalho constante</strong>Dados copiados manualmente entre sistemas, inconsistências e horas a corrigir erros evitáveis.</div></div>
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-users"/></svg></div><div class="ba-txt"><strong>Escalar significa contratar mais</strong>Cada aumento de volume exige mais headcount — custos fixos que crescem proporcionalmente.</div></div>
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-file-clock"/></svg></div><div class="ba-txt"><strong>Decisões baseadas em relatórios desatualizados</strong>Dados com dias de atraso, construídos manualmente, que chegam tarde demais para ser úteis.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-repeat"/></svg></div><div class="ba-txt" data-i18n-html="before1"><strong>Horas perdidas em tarefas repetitivas</strong>A equipa gasta 60-70% do tempo em trabalho que não requer julgamento humano.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-clock"/></svg></div><div class="ba-txt" data-i18n-html="before2"><strong>Atendimento limitado ao horário de trabalho</strong>Clientes ficam sem resposta fora das 9h-18h. Oportunidades perdidas à noite e ao fim de semana.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-x-circle"/></svg></div><div class="ba-txt" data-i18n-html="before3"><strong>Erros humanos e retrabalho constante</strong>Dados copiados manualmente entre sistemas, inconsistências e horas a corrigir erros evitáveis.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-users"/></svg></div><div class="ba-txt" data-i18n-html="before4"><strong>Escalar significa contratar mais</strong>Cada aumento de volume exige mais headcount — custos fixos que crescem proporcionalmente.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-file-clock"/></svg></div><div class="ba-txt" data-i18n-html="before5"><strong>Decisões baseadas em relatórios desatualizados</strong>Dados com dias de atraso, construídos manualmente, que chegam tarde demais para ser úteis.</div></div>
       </div>
     </div>
     <div class="ba-mid">→</div>
     <div class="ba-col after">
       <div class="ba-head">
         <div class="ba-dot-a"></div>
-        <div class="ba-label">Com OracleBusiness</div>
+        <div class="ba-label" data-i18n="impact.after.label">Com OracleBusiness</div>
       </div>
       <div class="ba-items">
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-bolt"/></svg></div><div class="ba-txt"><strong>Processos que correm sozinhos</strong>A equipa foca-se no que realmente importa. O sistema trata do resto automaticamente, sem falhas.</div></div>
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-moon"/></svg></div><div class="ba-txt"><strong>Atendimento 24/7, 365 dias por ano</strong>Clientes recebem resposta em segundos a qualquer hora. Nenhuma oportunidade fica sem resposta.</div></div>
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg></div><div class="ba-txt"><strong>Zero erros na transferência de dados</strong>Sistemas sincronizados em tempo real, validação automática. Retrabalho praticamente eliminado.</div></div>
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-rocket"/></svg></div><div class="ba-txt"><strong>Escalas sem aumentar custos fixos</strong>O volume pode triplicar. O custo operacional mantém-se. Margem cresce com o negócio.</div></div>
-        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-chart"/></svg></div><div class="ba-txt"><strong>Insights em tempo real, sempre atualizados</strong>Dashboards automáticos com dados ao minuto. Decisões baseadas em factos, não em intuições.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-bolt"/></svg></div><div class="ba-txt" data-i18n-html="after1"><strong>Processos que correm sozinhos</strong>A equipa foca-se no que realmente importa. O sistema trata do resto automaticamente, sem falhas.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-moon"/></svg></div><div class="ba-txt" data-i18n-html="after2"><strong>Atendimento 24/7, 365 dias por ano</strong>Clientes recebem resposta em segundos a qualquer hora. Nenhuma oportunidade fica sem resposta.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-check"/></svg></div><div class="ba-txt" data-i18n-html="after3"><strong>Zero erros na transferência de dados</strong>Sistemas sincronizados em tempo real, validação automática. Retrabalho praticamente eliminado.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-rocket"/></svg></div><div class="ba-txt" data-i18n-html="after4"><strong>Escalas sem aumentar custos fixos</strong>O volume pode triplicar. O custo operacional mantém-se. Margem cresce com o negócio.</div></div>
+        <div class="ba-item"><div class="ba-icon"><svg viewBox="0 0 24 24"><use href="#ic-chart"/></svg></div><div class="ba-txt" data-i18n-html="after5"><strong>Insights em tempo real, sempre atualizados</strong>Dashboards automáticos com dados ao minuto. Decisões baseadas em factos, não em intuições.</div></div>
       </div>
     </div>
   </div>
@@ -414,30 +477,30 @@
 <section class="sec sec-tint" id="processo">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey">Processo</div>
-      <div class="sec-ti">Como trabalhamos</div>
+      <div class="sec-ey" data-i18n="process.eyebrow">Processo</div>
+      <div class="sec-ti" data-i18n="process.title">Como trabalhamos</div>
     </div>
   </div>
   <div class="how-grid">
     <div class="how-c">
       <div class="how-n">01</div>
-      <div class="how-t">Diagnóstico</div>
-      <div class="how-d">Reunião de 60 minutos onde mapeamos os teus processos, identificamos as maiores ineficiências e definimos onde a AI gera mais ROI imediato.</div>
+      <div class="how-t" data-i18n="proc1.title">Diagnóstico</div>
+      <div class="how-d" data-i18n="proc1.desc">Reunião de 60 minutos onde mapeamos os teus processos, identificamos as maiores ineficiências e definimos onde a AI gera mais ROI imediato.</div>
     </div>
     <div class="how-c">
       <div class="how-n">02</div>
-      <div class="how-t">Proposta técnica</div>
-      <div class="how-d">Entregamos um plano detalhado: arquitetura, tecnologias, cronograma e estimativa de impacto — antes de qualquer comprometimento financeiro.</div>
+      <div class="how-t" data-i18n="proc2.title">Proposta técnica</div>
+      <div class="how-d" data-i18n="proc2.desc">Entregamos um plano detalhado: arquitetura, tecnologias, cronograma e estimativa de impacto — antes de qualquer comprometimento financeiro.</div>
     </div>
     <div class="how-c">
       <div class="how-n">03</div>
-      <div class="how-t">Build &amp; Deploy</div>
-      <div class="how-d">Desenvolvimento em ciclos curtos de 1-2 semanas com feedback contínuo. Em produção rapidamente, sem surpresas no final do projeto.</div>
+      <div class="how-t" data-i18n="proc3.title">Build &amp; Deploy</div>
+      <div class="how-d" data-i18n="proc3.desc">Desenvolvimento em ciclos curtos de 1-2 semanas com feedback contínuo. Em produção rapidamente, sem surpresas no final do projeto.</div>
     </div>
     <div class="how-c">
       <div class="how-n">04</div>
-      <div class="how-t">Crescimento contínuo</div>
-      <div class="how-d">Monitorização, otimizações e novas funcionalidades mês a mês. O sistema melhora com dados reais — não para depois do lançamento.</div>
+      <div class="how-t" data-i18n="proc4.title">Crescimento contínuo</div>
+      <div class="how-d" data-i18n="proc4.desc">Monitorização, otimizações e novas funcionalidades mês a mês. O sistema melhora com dados reais — não para depois do lançamento.</div>
     </div>
   </div>
 </section>
@@ -446,47 +509,47 @@
 <section class="sec" id="precos">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey">Modelos de trabalho</div>
-      <div class="sec-ti">Como podemos colaborar</div>
+      <div class="sec-ey" data-i18n="pricing.eyebrow">Modelos de trabalho</div>
+      <div class="sec-ti" data-i18n="pricing.title">Como podemos colaborar</div>
     </div>
   </div>
   <div class="eng-grid">
     <div class="eng">
       <div class="eng-icon"><svg viewBox="0 0 24 24"><use href="#ic-target"/></svg></div>
-      <div class="eng-nm">Projeto</div>
-      <div class="eng-sub">Entrega única</div>
-      <div class="eng-ds">Scope definido, preço fixo, prazo acordado. Ideal para automatizar um processo específico ou lançar uma app. Sabes exatamente o que vais receber e quando.</div>
+      <div class="eng-nm" data-i18n="plan1.name">Projeto</div>
+      <div class="eng-sub" data-i18n="plan1.sub">Entrega única</div>
+      <div class="eng-ds" data-i18n="plan1.desc">Scope definido, preço fixo, prazo acordado. Ideal para automatizar um processo específico ou lançar uma app. Sabes exatamente o que vais receber e quando.</div>
       <div class="eng-perks">
-        <div class="eng-perk"><span class="ep-dot"></span>Orçamento previsível e sem surpresas</div>
-        <div class="eng-perk"><span class="ep-dot"></span>Entrega em 4 a 8 semanas</div>
-        <div class="eng-perk"><span class="ep-dot"></span>Suporte pós-lançamento incluído (30 dias)</div>
+        <div class="eng-perk"><span class="ep-dot"></span><span data-i18n="plan1.perk1">Orçamento previsível e sem surpresas</span></div>
+        <div class="eng-perk"><span class="ep-dot"></span><span data-i18n="plan1.perk2">Entrega em 4 a 8 semanas</span></div>
+        <div class="eng-perk"><span class="ep-dot"></span><span data-i18n="plan1.perk3">Suporte pós-lançamento incluído (30 dias)</span></div>
       </div>
-      <a class="eng-cta" href="#contacto">Pedir orçamento</a>
+      <a class="eng-cta" data-i18n="plan1.cta" href="#contacto">Pedir orçamento</a>
     </div>
     <div class="eng featured">
-      <div class="eng-badge">Mais popular</div>
+      <div class="eng-badge" data-i18n="plan2.badge">Mais popular</div>
       <div class="eng-icon"><svg viewBox="0 0 24 24"><use href="#ic-cycle"/></svg></div>
-      <div class="eng-nm">Retainer</div>
-      <div class="eng-sub">Parceria mensal</div>
-      <div class="eng-ds">A OracleBusiness como parte da tua equipa. Desenvolvimento contínuo, manutenção, melhorias mensais e suporte prioritário. Para empresas que querem evoluir constantemente.</div>
+      <div class="eng-nm" data-i18n="plan2.name">Retainer</div>
+      <div class="eng-sub" data-i18n="plan2.sub">Parceria mensal</div>
+      <div class="eng-ds" data-i18n="plan2.desc">A OracleBusiness como parte da tua equipa. Desenvolvimento contínuo, manutenção, melhorias mensais e suporte prioritário. Para empresas que querem evoluir constantemente.</div>
       <div class="eng-perks">
-        <div class="eng-perk"><span class="ep-dot"></span>Capacidade dedicada mês a mês</div>
-        <div class="eng-perk"><span class="ep-dot"></span>Resposta prioritária em 4 horas</div>
-        <div class="eng-perk"><span class="ep-dot"></span>Revisão mensal de performance e roadmap</div>
+        <div class="eng-perk"><span class="ep-dot"></span><span data-i18n="plan2.perk1">Capacidade dedicada mês a mês</span></div>
+        <div class="eng-perk"><span class="ep-dot"></span><span data-i18n="plan2.perk2">Resposta prioritária em 4 horas</span></div>
+        <div class="eng-perk"><span class="ep-dot"></span><span data-i18n="plan2.perk3">Revisão mensal de performance e roadmap</span></div>
       </div>
-      <a class="eng-cta" href="#contacto">Falar sobre retainer</a>
+      <a class="eng-cta" data-i18n="plan2.cta" href="#contacto">Falar sobre retainer</a>
     </div>
     <div class="eng">
       <div class="eng-icon"><svg viewBox="0 0 24 24"><use href="#ic-trend"/></svg></div>
-      <div class="eng-nm">Revenue Share</div>
-      <div class="eng-sub">Alinhamento total</div>
-      <div class="eng-ds">Investimento inicial reduzido em troca de uma percentagem das poupanças ou receita gerada pela automação. Só ganhamos se tu ganhares.</div>
+      <div class="eng-nm" data-i18n="plan3.name">Revenue Share</div>
+      <div class="eng-sub" data-i18n="plan3.sub">Alinhamento total</div>
+      <div class="eng-ds" data-i18n="plan3.desc">Investimento inicial reduzido em troca de uma percentagem das poupanças ou receita gerada pela automação. Só ganhamos se tu ganhares.</div>
       <div class="eng-perks">
-        <div class="eng-perk"><span class="ep-dot"></span>Entrada acessível para projetos de alto impacto</div>
-        <div class="eng-perk"><span class="ep-dot"></span>Incentivo máximo para entregar resultados reais</div>
-        <div class="eng-perk"><span class="ep-dot"></span>Avaliado caso a caso</div>
+        <div class="eng-perk"><span class="ep-dot"></span><span data-i18n="plan3.perk1">Entrada acessível para projetos de alto impacto</span></div>
+        <div class="eng-perk"><span class="ep-dot"></span><span data-i18n="plan3.perk2">Incentivo máximo para entregar resultados reais</span></div>
+        <div class="eng-perk"><span class="ep-dot"></span><span data-i18n="plan3.perk3">Avaliado caso a caso</span></div>
       </div>
-      <a class="eng-cta" href="#contacto">Explorar este modelo</a>
+      <a class="eng-cta" data-i18n="plan3.cta" href="#contacto">Explorar este modelo</a>
     </div>
   </div>
 </section>
@@ -495,33 +558,33 @@
 <section class="sec sec-tint">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey">Prova social</div>
-      <div class="sec-ti">O que dizem os clientes</div>
+      <div class="sec-ey" data-i18n="testimonials.eyebrow">Prova social</div>
+      <div class="sec-ti" data-i18n="testimonials.title">O que dizem os clientes</div>
     </div>
   </div>
   <div class="testi-grid">
     <div class="testi">
       <div class="testi-stars">★★★★★</div>
-      <div class="testi-q">Automatizámos todo o processo de faturação e reconciliação. O que demorava 3 dias por mês agora acontece em menos de 2 horas — sem erros.</div>
+      <div class="testi-q" data-i18n="t1.quote">Automatizámos todo o processo de faturação e reconciliação. O que demorava 3 dias por mês agora acontece em menos de 2 horas — sem erros.</div>
       <div class="testi-auth">
         <div class="testi-av">MF</div>
-        <div><div class="testi-nm">Miguel Ferreira</div><div class="testi-co">CEO · Grupo Ferreira Logística</div></div>
+        <div><div class="testi-nm">Miguel Ferreira</div><div class="testi-co" data-i18n="t1.role">CEO · Grupo Ferreira Logística</div></div>
       </div>
     </div>
     <div class="testi">
       <div class="testi-stars">★★★★★</div>
-      <div class="testi-q">O assistente de WhatsApp que criaram responde a 80% das perguntas dos nossos clientes sem qualquer intervenção humana. A satisfação do cliente subiu 40%.</div>
+      <div class="testi-q" data-i18n="t2.quote">O assistente de WhatsApp que criaram responde a 80% das perguntas dos nossos clientes sem qualquer intervenção humana. A satisfação do cliente subiu 40%.</div>
       <div class="testi-auth">
         <div class="testi-av">AC</div>
-        <div><div class="testi-nm">Ana Carvalho</div><div class="testi-co">Diretora Comercial · MediCenter</div></div>
+        <div><div class="testi-nm">Ana Carvalho</div><div class="testi-co" data-i18n="t2.role">Diretora Comercial · MediCenter</div></div>
       </div>
     </div>
     <div class="testi">
       <div class="testi-stars">★★★★★</div>
-      <div class="testi-q">A app mobile que desenvolveram em 6 semanas já tem 2.000 utilizadores ativos. A qualidade do código e a velocidade de entrega surpreenderam toda a equipa.</div>
+      <div class="testi-q" data-i18n="t3.quote">A app mobile que desenvolveram em 6 semanas já tem 2.000 utilizadores ativos. A qualidade do código e a velocidade de entrega surpreenderam toda a equipa.</div>
       <div class="testi-auth">
         <div class="testi-av">RS</div>
-        <div><div class="testi-nm">Rui Santos</div><div class="testi-co">CTO · Imov360</div></div>
+        <div><div class="testi-nm">Rui Santos</div><div class="testi-co" data-i18n="t3.role">CTO · Imov360</div></div>
       </div>
     </div>
   </div>
@@ -539,23 +602,23 @@
 <section class="sec">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey">A nossa convicção</div>
-      <div class="sec-ti">Porquê OracleBusiness</div>
+      <div class="sec-ey" data-i18n="manifesto.eyebrow">A nossa convicção</div>
+      <div class="sec-ti" data-i18n="manifesto.title">Porquê OracleBusiness</div>
     </div>
   </div>
   <div class="manifesto">
-    <div class="mq">
+    <div class="mq" data-i18n-html="manifesto.quote">
       Não vendemos software.<br><br>
       Vendemos <em>tempo de volta</em><br>
       e capacidade<br>de escalar.
     </div>
     <div>
-      <p class="mr-desc">Enquanto os teus concorrentes ainda dependem de processos manuais, as empresas que trabalham connosco operam com sistemas que aprendem, adaptam e executam — sem parar. Construímos a infraestrutura que separa as empresas do futuro das do passado.</p>
+      <p class="mr-desc" data-i18n="manifesto.desc">Enquanto os teus concorrentes ainda dependem de processos manuais, as empresas que trabalham connosco operam com sistemas que aprendem, adaptam e executam — sem parar. Construímos a infraestrutura que separa as empresas do futuro das do passado.</p>
       <div class="mr-pts">
-        <div class="mr-pt"><span class="mr-dot"></span>Sistemas que nunca dormem, nunca erram, nunca param.</div>
-        <div class="mr-pt"><span class="mr-dot"></span>Solução à medida — não um produto genérico adaptado a martelo.</div>
-        <div class="mr-pt"><span class="mr-dot"></span>Deploy rápido e seguro — em semanas, não em trimestres.</div>
-        <div class="mr-pt"><span class="mr-dot"></span>O que hoje automatiza 10 tarefas, amanhã automatiza 1000.</div>
+        <div class="mr-pt"><span class="mr-dot"></span><span data-i18n="manifesto.pt1">Sistemas que nunca dormem, nunca erram, nunca param.</span></div>
+        <div class="mr-pt"><span class="mr-dot"></span><span data-i18n="manifesto.pt2">Solução à medida — não um produto genérico adaptado a martelo.</span></div>
+        <div class="mr-pt"><span class="mr-dot"></span><span data-i18n="manifesto.pt3">Deploy rápido e seguro — em semanas, não em trimestres.</span></div>
+        <div class="mr-pt"><span class="mr-dot"></span><span data-i18n="manifesto.pt4">O que hoje automatiza 10 tarefas, amanhã automatiza 1000.</span></div>
       </div>
     </div>
   </div>
@@ -565,13 +628,13 @@
 <section class="sec sec-tint">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey">Tecnologia</div>
-      <div class="sec-ti">Stack</div>
+      <div class="sec-ey" data-i18n="stack.eyebrow">Tecnologia</div>
+      <div class="sec-ti" data-i18n="stack.title">Stack</div>
     </div>
   </div>
   <div class="stack-wrap">
     <div class="sg">
-      <div class="sg-t">LLMs &amp; AI</div>
+      <div class="sg-t" data-i18n="stack.group1">LLMs &amp; AI</div>
       <div class="sg-pills">
         <span class="sp h">OpenAI GPT-4o</span>
         <span class="sp h">Anthropic Claude</span>
@@ -584,7 +647,7 @@
       </div>
     </div>
     <div class="sg">
-      <div class="sg-t">Automação &amp; Mobile</div>
+      <div class="sg-t" data-i18n="stack.group2">Automação &amp; Mobile</div>
       <div class="sg-pills">
         <span class="sp h">n8n</span>
         <span class="sp h">React Native</span>
@@ -596,7 +659,7 @@
       </div>
     </div>
     <div class="sg">
-      <div class="sg-t">Infraestrutura &amp; Backend</div>
+      <div class="sg-t" data-i18n="stack.group3">Infraestrutura &amp; Backend</div>
       <div class="sg-pills">
         <span class="sp h">Supabase</span>
         <span class="sp h">Next.js</span>
@@ -614,38 +677,38 @@
 <section class="sec" id="faq">
   <div class="sec-hd">
     <div>
-      <div class="sec-ey">Dúvidas frequentes</div>
-      <div class="sec-ti">FAQ</div>
+      <div class="sec-ey" data-i18n="faq.eyebrow">Dúvidas frequentes</div>
+      <div class="sec-ti" data-i18n="faq.title">FAQ</div>
     </div>
   </div>
   <div class="faq-list">
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Quanto tempo demora a implementar uma solução? <span class="faq-arr">+</span></div>
-      <div class="faq-a">A maioria dos projetos vai a produção entre 4 a 8 semanas. Automações mais simples podem ser entregues em 2 semanas. Projetos de maior escala (apps mobile completas, sistemas multi-agente) levam entre 8 a 16 semanas. Na reunião inicial definimos um cronograma realista baseado no teu caso específico — nunca prometemos datas que não conseguimos cumprir.</div>
+      <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq1.q">Quanto tempo demora a implementar uma solução?</span> <span class="faq-arr">+</span></div>
+      <div class="faq-a" data-i18n="faq1.a">A maioria dos projetos vai a produção entre 4 a 8 semanas. Automações mais simples podem ser entregues em 2 semanas. Projetos de maior escala (apps mobile completas, sistemas multi-agente) levam entre 8 a 16 semanas. Na reunião inicial definimos um cronograma realista baseado no teu caso específico — nunca prometemos datas que não conseguimos cumprir.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Preciso de ter uma equipa técnica interna? <span class="faq-arr">+</span></div>
-      <div class="faq-a">Não. Trabalhamos com empresas que não têm nenhum técnico interno. Tratamos de toda a implementação, deploy e manutenção. Se já tens uma equipa de IT, também conseguimos integrar e trabalhar em conjunto — o modelo adapta-se à tua realidade.</div>
+      <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq2.q">Preciso de ter uma equipa técnica interna?</span> <span class="faq-arr">+</span></div>
+      <div class="faq-a" data-i18n="faq2.a">Não. Trabalhamos com empresas que não têm nenhum técnico interno. Tratamos de toda a implementação, deploy e manutenção. Se já tens uma equipa de IT, também conseguimos integrar e trabalhar em conjunto — o modelo adapta-se à tua realidade.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Os meus dados ficam seguros? <span class="faq-arr">+</span></div>
-      <div class="faq-a">Segurança é uma prioridade desde o primeiro dia. Trabalhamos com encriptação em trânsito e em repouso, controlo de acessos rigoroso e conformidade com o RGPD. Os teus dados nunca são usados para treinar modelos externos. Podemos também trabalhar com soluções on-premise ou em cloud privada se necessário.</div>
+      <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq3.q">Os meus dados ficam seguros?</span> <span class="faq-arr">+</span></div>
+      <div class="faq-a" data-i18n="faq3.a">Segurança é uma prioridade desde o primeiro dia. Trabalhamos com encriptação em trânsito e em repouso, controlo de acessos rigoroso e conformidade com o RGPD. Os teus dados nunca são usados para treinar modelos externos. Podemos também trabalhar com soluções on-premise ou em cloud privada se necessário.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Qual é o investimento mínimo para começar? <span class="faq-arr">+</span></div>
-      <div class="faq-a">Depende do scope do projeto. Automações pontuais e assistentes simples podem partir de valores acessíveis. Projetos de maior complexidade têm um investimento proporcional ao impacto gerado. Em todos os casos, fazemos uma estimativa de ROI antes de qualquer compromisso — para que percebas o retorno esperado antes de decidires.</div>
+      <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq4.q">Qual é o investimento mínimo para começar?</span> <span class="faq-arr">+</span></div>
+      <div class="faq-a" data-i18n="faq4.a">Depende do scope do projeto. Automações pontuais e assistentes simples podem partir de valores acessíveis. Projetos de maior complexidade têm um investimento proporcional ao impacto gerado. Em todos os casos, fazemos uma estimativa de ROI antes de qualquer compromisso — para que percebas o retorno esperado antes de decidires.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">O que acontece depois do projeto estar entregue? <span class="faq-arr">+</span></div>
-      <div class="faq-a">Todos os projetos incluem suporte pós-lançamento de 30 dias. A partir daí, podes optar por um retainer mensal para manutenção e evolução contínua, ou um contrato de suporte reativo. Não entregamos e desaparecemos — ficamos disponíveis para garantir que o sistema continua a funcionar e a melhorar.</div>
+      <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq5.q">O que acontece depois do projeto estar entregue?</span> <span class="faq-arr">+</span></div>
+      <div class="faq-a" data-i18n="faq5.a">Todos os projetos incluem suporte pós-lançamento de 30 dias. A partir daí, podes optar por um retainer mensal para manutenção e evolução contínua, ou um contrato de suporte reativo. Não entregamos e desaparecemos — ficamos disponíveis para garantir que o sistema continua a funcionar e a melhorar.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Trabalham com empresas pequenas ou só grandes empresas? <span class="faq-arr">+</span></div>
-      <div class="faq-a">Trabalhamos com PMEs, startups e empresas de média dimensão. Na verdade, é onde o impacto da automação é mais visível e imediato — uma equipa de 5 pessoas com os processos certos consegue operar como uma equipa de 20. O tamanho da empresa não determina se a AI faz sentido; o volume de processos repetitivos sim.</div>
+      <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq6.q">Trabalham com empresas pequenas ou só grandes empresas?</span> <span class="faq-arr">+</span></div>
+      <div class="faq-a" data-i18n="faq6.a">Trabalhamos com PMEs, startups e empresas de média dimensão. Na verdade, é onde o impacto da automação é mais visível e imediato — uma equipa de 5 pessoas com os processos certos consegue operar como uma equipa de 20. O tamanho da empresa não determina se a AI faz sentido; o volume de processos repetitivos sim.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Podem integrar com os sistemas que já uso (CRM, ERP, etc.)? <span class="faq-arr">+</span></div>
-      <div class="faq-a">Sim. Integramos com praticamente qualquer sistema que tenha API — Salesforce, HubSpot, SAP, Odoo, Primavera, e muitos outros. Mesmo sistemas legados sem API têm soluções via RPA. Na reunião de diagnóstico mapeamos todas as integrações necessárias e identificamos possíveis limitações antes de começarmos.</div>
+      <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq7.q">Podem integrar com os sistemas que já uso (CRM, ERP, etc.)?</span> <span class="faq-arr">+</span></div>
+      <div class="faq-a" data-i18n="faq7.a">Sim. Integramos com praticamente qualquer sistema que tenha API — Salesforce, HubSpot, SAP, Odoo, Primavera, e muitos outros. Mesmo sistemas legados sem API têm soluções via RPA. Na reunião de diagnóstico mapeamos todas as integrações necessárias e identificamos possíveis limitações antes de começarmos.</div>
     </div>
   </div>
 </section>
@@ -654,30 +717,30 @@
 <section class="sec" id="contacto" style="border-bottom:none">
   <div class="cta-block">
     <div class="cta-left">
-      <div class="cta-eyebrow">Pronto para começar?</div>
-      <div class="cta-h">Fala connosco.<br>A primeira reunião<br>é gratuita.</div>
-      <p class="cta-sub">Numa sessão de 60 minutos analisamos os teus processos, identificamos onde a AI gera mais impacto e apresentamos uma estimativa de ROI — sem compromisso.</p>
+      <div class="cta-eyebrow" data-i18n="contact.eyebrow">Pronto para começar?</div>
+      <div class="cta-h" data-i18n-html="contact.heading">Fala connosco.<br>A primeira reunião<br>é gratuita.</div>
+      <p class="cta-sub" data-i18n="contact.desc">Numa sessão de 60 minutos analisamos os teus processos, identificamos onde a AI gera mais impacto e apresentamos uma estimativa de ROI — sem compromisso.</p>
     </div>
     <form class="cta-form" id="contactForm">
       <div class="form-row">
-        <input class="f-inp" type="text" name="nome" placeholder="Nome" required>
-        <input class="f-inp" type="text" name="empresa" placeholder="Empresa" required>
+        <input class="f-inp" type="text" name="nome" data-i18n-placeholder="form.name" placeholder="Nome" required>
+        <input class="f-inp" type="text" name="empresa" data-i18n-placeholder="form.company" placeholder="Empresa" required>
       </div>
-      <input class="f-inp" type="email" name="email" placeholder="Email profissional" required>
-      <input class="f-inp" type="tel" name="telefone" placeholder="Telefone (opcional)">
+      <input class="f-inp" type="email" name="email" data-i18n-placeholder="form.email" placeholder="Email profissional" required>
+      <input class="f-inp" type="tel" name="telefone" data-i18n-placeholder="form.phone" placeholder="Telefone (opcional)">
       <select class="f-sel" name="servico">
-        <option value="" disabled selected>Qual o serviço de interesse?</option>
-        <option>Automação de Processos</option>
-        <option>Agentes LLM</option>
-        <option>Mobile App</option>
-        <option>Assistente / Chatbot</option>
-        <option>Document AI</option>
-        <option>Analytics com AI</option>
-        <option>Não tenho a certeza — quero explorar</option>
+        <option value="" data-i18n="form.select.default" disabled selected>Qual o serviço de interesse?</option>
+        <option data-i18n="form.select.1">Automação de Processos</option>
+        <option data-i18n="form.select.2">Agentes LLM</option>
+        <option data-i18n="form.select.3">Mobile App</option>
+        <option data-i18n="form.select.4">Assistente / Chatbot</option>
+        <option data-i18n="form.select.5">Document AI</option>
+        <option data-i18n="form.select.6">Analytics com AI</option>
+        <option data-i18n="form.select.7">Não tenho a certeza — quero explorar</option>
       </select>
-      <textarea class="f-ta" name="mensagem" placeholder="Descreve brevemente o teu desafio ou processo que queres automatizar..."></textarea>
-      <button class="f-btn" type="submit">Agendar reunião gratuita →</button>
-      <div class="f-note">Resposta em menos de 24 horas · Sem spam · Sem compromisso</div>
+      <textarea class="f-ta" name="mensagem" data-i18n-placeholder="form.message" placeholder="Descreve brevemente o teu desafio ou processo que queres automatizar..."></textarea>
+      <button class="f-btn" type="submit" data-i18n="form.submit">Agendar reunião gratuita →</button>
+      <div class="f-note" data-i18n="form.note">Resposta em menos de 24 horas · Sem spam · Sem compromisso</div>
     </form>
   </div>
 </section>
@@ -694,18 +757,19 @@
     </div>
   </div>
   <div class="f-links">
-    <a class="f-lk" href="#servicos">Serviços</a>
-    <a class="f-lk" href="#setores">Setores</a>
-    <a class="f-lk" href="#processo">Processo</a>
-    <a class="f-lk" href="#faq">FAQ</a>
+    <a class="f-lk" data-i18n="nav.services" href="#servicos">Serviços</a>
+    <a class="f-lk" data-i18n="nav.sectors" href="#setores">Setores</a>
+    <a class="f-lk" data-i18n="nav.process" href="#processo">Processo</a>
+    <a class="f-lk" data-i18n="nav.faq" href="#faq">FAQ</a>
     <a class="f-lk" href="#contacto">Contacto</a>
   </div>
   <div class="f-right">
     <span class="f-live"></span>
-    Lisboa, Portugal &nbsp;·&nbsp; © 2025 OracleBusiness
+    <span data-i18n-html="footer.location">Lisboa, Portugal &nbsp;·&nbsp; © 2025 OracleBusiness</span>
   </div>
 </footer>
 
+<script src="js/i18n.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

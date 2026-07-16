@@ -56,12 +56,14 @@ if (form) {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     const btn = form.querySelector('.f-btn');
-    btn.textContent = 'Mensagem enviada ✓';
+    const dict = translations[getLang()];
+    const originalKey = btn.getAttribute('data-i18n');
+    btn.textContent = dict['form.success'];
     btn.style.background = '#22C55E';
     btn.style.color = '#fff';
     btn.disabled = true;
     setTimeout(() => {
-      btn.textContent = 'Agendar reunião gratuita →';
+      btn.textContent = translations[getLang()][originalKey];
       btn.style.background = '';
       btn.style.color = '';
       btn.disabled = false;
@@ -95,3 +97,42 @@ document.querySelectorAll('.ba-col, .manifesto, .stack-wrap, .faq-item, .logos-r
   el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
   revealObserver.observe(el);
 });
+
+// ── SCROLL PROGRESS ──
+const scrollBar = document.getElementById('scrollBar');
+function updateScrollProgress() {
+  const h = document.documentElement;
+  const scrolled = h.scrollHeight > h.clientHeight
+    ? (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100
+    : 0;
+  if (scrollBar) scrollBar.style.width = scrolled + '%';
+}
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
+updateScrollProgress();
+
+// ── THEME TOGGLE ──
+const themeToggle = document.getElementById('themeToggle');
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('ob-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('ob-theme', 'dark');
+    }
+  });
+}
+
+// ── HERO CURSOR SPOTLIGHT ──
+const heroSection = document.getElementById('heroSection');
+if (heroSection) {
+  heroSection.addEventListener('mousemove', (e) => {
+    const rect = heroSection.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    heroSection.style.setProperty('--mx', x + '%');
+    heroSection.style.setProperty('--my', y + '%');
+  });
+}

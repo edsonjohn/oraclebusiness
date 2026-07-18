@@ -1,4 +1,6 @@
 // ── COUNTER ANIMATION ──
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
 function animateCounter(id, target, duration) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -6,7 +8,7 @@ function animateCounter(id, target, duration) {
   function step(ts) {
     if (!start) start = ts;
     const progress = Math.min((ts - start) / duration, 1);
-    el.textContent = Math.round(progress * target);
+    el.textContent = Math.round(easeOutCubic(progress) * target);
     if (progress < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
@@ -118,3 +120,20 @@ if (heroSection) {
     heroSection.style.setProperty('--my', y + '%');
   });
 }
+
+// ── CARD CURSOR SPOTLIGHT ──
+document.querySelectorAll('.spotlight-card').forEach((card) => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+    card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+  });
+});
+
+// ── NAV SCROLL SHRINK ──
+const navEl = document.querySelector('nav');
+function updateNavScroll() {
+  if (navEl) navEl.classList.toggle('nav-scrolled', window.scrollY > 40);
+}
+window.addEventListener('scroll', updateNavScroll, { passive: true });
+updateNavScroll();

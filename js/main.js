@@ -76,25 +76,22 @@ if (form) {
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
+      entry.target.classList.add('is-revealed');
+      revealObserver.unobserve(entry.target);
     }
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 ['.svc-list > .svc', '.sectors-grid > .sector', '.testi-grid > .testi', '.eng-grid > .eng', '.how-grid > .how-c'].forEach(sel => {
   document.querySelectorAll(sel).forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.4s ease ${Math.min(i * 0.07, 0.35)}s, transform 0.4s ease ${Math.min(i * 0.07, 0.35)}s`;
+    el.classList.add('reveal-init');
+    el.style.transitionDelay = `${Math.min(i * 0.07, 0.35)}s`;
     revealObserver.observe(el);
   });
 });
 
-document.querySelectorAll('.ba-col, .manifesto, .stack-wrap, .faq-item, .logos-row, .sec-hd').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+document.querySelectorAll('.ba-col, .manifesto, .stack-wrap, .faq-item, .trusted-bar, .sec-hd').forEach(el => {
+  el.classList.add('reveal-init');
   revealObserver.observe(el);
 });
 
@@ -109,21 +106,6 @@ function updateScrollProgress() {
 }
 window.addEventListener('scroll', updateScrollProgress, { passive: true });
 updateScrollProgress();
-
-// ── THEME TOGGLE ──
-const themeToggle = document.getElementById('themeToggle');
-if (themeToggle) {
-  themeToggle.addEventListener('click', () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    if (isDark) {
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.setItem('ob-theme', 'light');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('ob-theme', 'dark');
-    }
-  });
-}
 
 // ── HERO CURSOR SPOTLIGHT ──
 const heroSection = document.getElementById('heroSection');

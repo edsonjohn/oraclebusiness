@@ -9,13 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <script>
-    (function () {
-      var saved = localStorage.getItem('ob-theme');
-      var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-    })();
-  </script>
 </head>
 <body>
 
@@ -183,12 +176,6 @@
       <path d="M10 21v-6h4v6"/>
     </g>
   </symbol>
-  <symbol id="ic-sun" viewBox="0 0 24 24">
-    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="4.2"/>
-      <path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
-    </g>
-  </symbol>
 </svg>
 
 <!-- MASTHEAD -->
@@ -215,10 +202,6 @@
   </div>
   <div class="n-actions">
     <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
-    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro">
-      <svg class="icon-sun" viewBox="0 0 24 24"><use href="#ic-sun"/></svg>
-      <svg class="icon-moon" viewBox="0 0 24 24"><use href="#ic-moon"/></svg>
-    </button>
     <button class="n-btn" data-i18n="nav.cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
       Fale connosco
     </button>
@@ -256,7 +239,92 @@
     </div>
   </div>
   <div class="hero-glow"></div>
-  <div class="hero-network"></div>
+  <div class="hero-network">
+    <svg viewBox="0 0 1600 900" fill="none">
+      <g stroke="currentColor" stroke-width="1.2" stroke-opacity="0.16">
+        <line x1="480" y1="150" x2="620" y2="90"/>
+        <line x1="620" y1="90" x2="760" y2="180"/>
+        <line x1="480" y1="150" x2="700" y2="320"/>
+        <line x1="760" y1="180" x2="700" y2="320"/>
+        <line x1="760" y1="180" x2="850" y2="260"/>
+        <line x1="700" y1="320" x2="850" y2="260"/>
+        <line x1="850" y1="260" x2="950" y2="120"/>
+        <line x1="850" y1="260" x2="1050" y2="240"/>
+        <line x1="950" y1="120" x2="1050" y2="240"/>
+        <line x1="950" y1="120" x2="1180" y2="150"/>
+        <line x1="1050" y1="240" x2="1180" y2="150"/>
+        <line x1="1050" y1="240" x2="1120" y2="340"/>
+        <line x1="1180" y1="150" x2="1120" y2="340"/>
+        <line x1="1180" y1="150" x2="1280" y2="280"/>
+        <line x1="1180" y1="150" x2="1380" y2="180"/>
+        <line x1="1120" y1="340" x2="1280" y2="280"/>
+        <line x1="1280" y1="280" x2="1380" y2="180"/>
+        <line x1="1280" y1="280" x2="1450" y2="320"/>
+        <line x1="1380" y1="180" x2="1450" y2="320"/>
+        <line x1="1380" y1="180" x2="1520" y2="220"/>
+        <line x1="1450" y1="320" x2="1520" y2="220"/>
+
+        <line x1="700" y1="320" x2="560" y2="380"/>
+        <line x1="700" y1="320" x2="700" y2="460"/>
+        <line x1="850" y1="260" x2="850" y2="420"/>
+        <line x1="1050" y1="240" x2="850" y2="420"/>
+        <line x1="1120" y1="340" x2="980" y2="500"/>
+        <line x1="1120" y1="340" x2="1120" y2="460"/>
+        <line x1="1280" y1="280" x2="1120" y2="460"/>
+        <line x1="1280" y1="280" x2="1250" y2="540"/>
+        <line x1="1450" y1="320" x2="1250" y2="540"/>
+        <line x1="1450" y1="320" x2="1380" y2="460"/>
+
+        <line x1="560" y1="380" x2="700" y2="460"/>
+        <line x1="700" y1="460" x2="850" y2="420"/>
+        <line x1="850" y1="420" x2="980" y2="500"/>
+        <line x1="980" y1="500" x2="1120" y2="460"/>
+        <line x1="1120" y1="460" x2="1250" y2="540"/>
+        <line x1="1250" y1="540" x2="1380" y2="460"/>
+
+        <line x1="700" y1="460" x2="800" y2="600"/>
+        <line x1="850" y1="420" x2="800" y2="600"/>
+        <line x1="850" y1="420" x2="950" y2="660"/>
+        <line x1="980" y1="500" x2="950" y2="660"/>
+        <line x1="980" y1="500" x2="1100" y2="600"/>
+        <line x1="1120" y1="460" x2="1100" y2="600"/>
+        <line x1="1120" y1="460" x2="1250" y2="700"/>
+        <line x1="1250" y1="540" x2="1250" y2="700"/>
+
+        <line x1="800" y1="600" x2="950" y2="660"/>
+        <line x1="950" y1="660" x2="1100" y2="600"/>
+        <line x1="1100" y1="600" x2="1250" y2="700"/>
+      </g>
+      <g fill="currentColor">
+        <circle cx="480" cy="150" r="3" fill-opacity="0.3"/>
+        <circle cx="620" cy="90" r="2.4" fill-opacity="0.3"/>
+        <circle cx="760" cy="180" r="3.4" fill-opacity="0.34"/>
+        <circle cx="700" cy="320" r="2.6" fill-opacity="0.3"/>
+        <circle cx="850" cy="260" r="4" fill-opacity="0.4"/>
+        <circle cx="950" cy="120" r="2.6" fill-opacity="0.3"/>
+        <circle cx="1050" cy="240" r="3.4" fill-opacity="0.34"/>
+        <circle cx="1180" cy="150" r="4.2" fill-opacity="0.42"/>
+        <circle cx="1120" cy="340" r="2.8" fill-opacity="0.3"/>
+        <circle cx="1280" cy="280" r="3.6" fill-opacity="0.36"/>
+        <circle cx="1380" cy="180" r="3" fill-opacity="0.32"/>
+        <circle cx="1450" cy="320" r="2.6" fill-opacity="0.3"/>
+        <circle cx="1520" cy="220" r="2.4" fill-opacity="0.28"/>
+
+        <circle cx="560" cy="380" r="2.4" fill-opacity="0.26"/>
+        <circle cx="700" cy="460" r="3" fill-opacity="0.3"/>
+        <circle cx="850" cy="420" r="3.4" fill-opacity="0.32"/>
+        <circle cx="980" cy="500" r="2.8" fill-opacity="0.3"/>
+        <circle cx="1120" cy="460" r="3.6" fill-opacity="0.34"/>
+        <circle cx="1250" cy="540" r="2.8" fill-opacity="0.3"/>
+        <circle cx="1380" cy="460" r="2.4" fill-opacity="0.26"/>
+
+        <circle cx="800" cy="600" r="2.6" fill-opacity="0.26"/>
+        <circle cx="950" cy="660" r="3" fill-opacity="0.28"/>
+        <circle cx="1100" cy="600" r="2.8" fill-opacity="0.28"/>
+        <circle cx="1250" cy="700" r="2.4" fill-opacity="0.24"/>
+      </g>
+    </svg>
+  </div>
   <div class="hero-spotlight"></div>
 </section>
 
@@ -299,6 +367,19 @@
   <div class="stat">
     <div class="stat-v">&lt;<span id="c4">0</span><s style="font-size:22px" data-i18n="stats.4unit">sem</s></div>
     <div class="stat-l" data-i18n="stats.4">Da primeira reunião ao deploy em produção</div>
+  </div>
+</div>
+
+<!-- TRUSTED BY -->
+<div class="trusted-bar">
+  <div class="trusted-label" data-i18n="trusted.label">Empresas que confiam na OracleBusiness</div>
+  <div class="trusted-logos">
+    <div class="logo-item">MediCenter</div>
+    <div class="logo-item">Grupo Ferreira</div>
+    <div class="logo-item">Imov360</div>
+    <div class="logo-item">LexPartners</div>
+    <div class="logo-item">RetailPro</div>
+    <div class="logo-item">FinanceHub</div>
   </div>
 </div>
 
@@ -575,14 +656,6 @@
         <div><div class="testi-nm">Rui Santos</div><div class="testi-co" data-i18n="t3.role">CTO · Imov360</div></div>
       </div>
     </div>
-  </div>
-  <div class="logos-row">
-    <div class="logo-item">MediCenter</div>
-    <div class="logo-item">Grupo Ferreira</div>
-    <div class="logo-item">Imov360</div>
-    <div class="logo-item">LexPartners</div>
-    <div class="logo-item">RetailPro</div>
-    <div class="logo-item">FinanceHub</div>
   </div>
 </section>
 

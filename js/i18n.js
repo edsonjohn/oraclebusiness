@@ -33,6 +33,8 @@ const translations = {
     'stats.4': 'Da primeira reunião ao deploy em produção',
     'stats.4unit': 'sem',
 
+    'trusted.label': 'Empresas que confiam na OracleBusiness',
+
     'services.eyebrow': 'O que construímos',
     'services.title': 'Serviços',
     'services.count': '07 áreas de especialização',
@@ -222,6 +224,8 @@ const translations = {
     'stats.3': 'Team capacity without increasing headcount',
     'stats.4': 'From first meeting to production deploy',
     'stats.4unit': 'wks',
+
+    'trusted.label': 'Trusted by teams at',
 
     'services.eyebrow': 'What we build',
     'services.title': 'Services',

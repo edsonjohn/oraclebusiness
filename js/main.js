@@ -84,7 +84,7 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-['.svc-list > .svc', '.sectors-grid > .sector', '.testi-grid > .testi', '.eng-grid > .eng', '.how-grid > .how-c'].forEach(sel => {
+['.svc-list > .svc', '.sectors-grid > .sector', '.testi-grid > .testi', '.eng-grid > .eng', '.how-grid > .how-c', '.portfolio-grid > .port-card'].forEach(sel => {
   document.querySelectorAll(sel).forEach((el, i) => {
     el.classList.add('reveal-init');
     el.style.transitionDelay = `${Math.min(i * 0.07, 0.35)}s`;

@@ -406,6 +406,49 @@ nav.nav-scrolled { padding-top: 10px; padding-bottom: 10px; box-shadow: 0 8px 24
 .trusted-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
 .trusted-logos { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
 
+/* ── PORTFOLIO ── */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.port-card {
+  display: block;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: background .2s, box-shadow .25s, transform .25s, border-color .25s, opacity .4s ease;
+}
+.port-card:hover { background: var(--bg3); border-color: var(--accent-border); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.port-thumb { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg3); border-bottom: 1px solid var(--border); }
+.port-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .5s ease; }
+.port-card:hover .port-thumb img { transform: scale(1.04); }
+.port-body { padding: 24px 28px 28px; position: relative; }
+.port-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.port-nm { font-size: 21px; font-weight: 900; letter-spacing: -.4px; color: var(--text); }
+.port-visit {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-pill);
+  color: var(--accent);
+  transition: transform .25s, color .25s;
+}
+.port-visit svg { width: 16px; height: 16px; }
+.port-card:hover .port-visit { color: var(--brand); transform: translate(2px, -2px); }
+.port-ds { font-size: 13px; color: var(--text2); line-height: 1.65; max-width: 480px; margin-bottom: 16px; }
+.port-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
 /* ── SECTION ── */
 .sec { padding: 80px 52px; border-bottom: 1px solid var(--border); }
 .sec-tint {
@@ -922,6 +965,7 @@ footer {
   .trusted-logos { gap: 24px; }
   .sec { padding: 60px 20px; }
   .sectors-grid { grid-template-columns: repeat(2, 1fr); }
+  .portfolio-grid { grid-template-columns: 1fr; }
   .ba-grid { grid-template-columns: 1fr; gap: 16px; }
   .ba-mid { transform: rotate(90deg); }
   .how-grid { grid-template-columns: repeat(2, 1fr); }

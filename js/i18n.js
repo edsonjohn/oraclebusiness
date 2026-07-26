@@ -1,6 +1,7 @@
 // ── TRANSLATIONS ──
 const translations = {
   pt: {
+    'nav.portfolio': 'Portfólio',
     'nav.services': 'Serviços',
     'nav.sectors': 'Setores',
     'nav.process': 'Processo',
@@ -34,6 +35,12 @@ const translations = {
     'stats.4unit': 'sem',
 
     'trusted.label': 'Empresas que confiam na OracleBusiness',
+
+    'portfolio.eyebrow': 'Prova em produção',
+    'portfolio.title': 'Portfólio',
+    'portfolio.count': 'Produtos que construímos e operamos',
+    'port1.desc': 'Assistente de vendas AI via WhatsApp para clínicas de estética e saúde. Responde, agenda e recomenda serviços adicionais 24 horas por dia — hoje com mais de 300 clientes ativos.',
+    'port2.desc': 'Prospeção B2B automatizada para clínicas, imobiliárias, advogados e outros serviços. Descoberta de leads e mensagens personalizadas para WhatsApp e email, sempre com aprovação humana antes do envio.',
 
     'services.eyebrow': 'O que construímos',
     'services.title': 'Serviços',
@@ -193,6 +200,7 @@ const translations = {
     'footer.location': 'Lisboa, Portugal &nbsp;·&nbsp; © 2025 OracleBusiness',
   },
   en: {
+    'nav.portfolio': 'Portfolio',
     'nav.services': 'Services',
     'nav.sectors': 'Sectors',
     'nav.process': 'Process',
@@ -226,6 +234,12 @@ const translations = {
     'stats.4unit': 'wks',
 
     'trusted.label': 'Trusted by teams at',
+
+    'portfolio.eyebrow': 'Live in production',
+    'portfolio.title': 'Portfolio',
+    'portfolio.count': 'Products we build and operate',
+    'port1.desc': 'AI sales assistant over WhatsApp for beauty and health clinics. Replies, books appointments and recommends add-on services around the clock — now serving 300+ active clients.',
+    'port2.desc': 'Automated B2B prospecting for clinics, real estate agencies, law firms and other service businesses. Lead discovery and personalized WhatsApp and email messaging, always with human approval before sending.',
 
     'services.eyebrow': 'What we build',
     'services.title': 'Services',

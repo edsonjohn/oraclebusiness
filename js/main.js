@@ -84,7 +84,7 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-['.svc-list > .svc', '.sectors-grid > .sector', '.testi-grid > .testi', '.eng-grid > .eng', '.how-grid > .how-c', '.portfolio-grid > .port-card'].forEach(sel => {
+['.svc-list > .svc', '.sectors-grid > .sector', '.testi-grid > .testi', '.eng-grid > .eng', '.how-grid > .how-c', '.portfolio-track > .port-card'].forEach(sel => {
   document.querySelectorAll(sel).forEach((el, i) => {
     el.classList.add('reveal-init');
     el.style.transitionDelay = `${Math.min(i * 0.07, 0.35)}s`;
@@ -129,6 +129,93 @@ document.querySelectorAll('.spotlight-card').forEach((card) => {
     card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height) * 100 + '%');
   });
 });
+
+// ── PORTFOLIO SLIDER ──
+const portfolioTrack = document.getElementById('portfolioTrack');
+if (portfolioTrack) {
+  const slides = Array.from(portfolioTrack.children);
+  const dotsWrap = document.getElementById('portfolioDots');
+  const prevBtn = document.getElementById('portfolioPrev');
+  const nextBtn = document.getElementById('portfolioNext');
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'port-dot';
+    dot.setAttribute('aria-label', `Ir para o projeto ${i + 1}`);
+    dot.addEventListener('click', () => {
+      portfolioTrack.scrollTo({ left: slide.offsetLeft - portfolioTrack.offsetLeft, behavior: 'smooth' });
+    });
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function activeIndex() {
+    const pos = portfolioTrack.scrollLeft;
+    let closest = 0;
+    let minDist = Infinity;
+    slides.forEach((slide, i) => {
+      const dist = Math.abs((slide.offsetLeft - portfolioTrack.offsetLeft) - pos);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    return closest;
+  }
+
+  function goTo(i) {
+    portfolioTrack.scrollTo({ left: slides[i].offsetLeft - portfolioTrack.offsetLeft, behavior: 'smooth' });
+  }
+
+  function updateSliderState() {
+    const i = activeIndex();
+    dots.forEach((d, di) => d.classList.toggle('active', di === i));
+  }
+
+  let scrollTimer;
+  portfolioTrack.addEventListener('scroll', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(updateSliderState, 80);
+  }, { passive: true });
+
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    goTo((activeIndex() - 1 + slides.length) % slides.length);
+    restartAutoplay();
+  });
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    goTo((activeIndex() + 1) % slides.length);
+    restartAutoplay();
+  });
+  dots.forEach(dot => dot.addEventListener('click', restartAutoplay));
+
+  window.addEventListener('resize', updateSliderState, { passive: true });
+  updateSliderState();
+
+  // ── AUTOPLAY ──
+  const AUTOPLAY_DELAY = 5000;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let autoplayTimer;
+
+  function startAutoplay() {
+    if (reduceMotion || slides.length < 2) return;
+    stopAutoplay();
+    autoplayTimer = setInterval(() => goTo((activeIndex() + 1) % slides.length), AUTOPLAY_DELAY);
+  }
+  function stopAutoplay() { clearInterval(autoplayTimer); }
+  function restartAutoplay() { startAutoplay(); }
+
+  const sliderEl = document.querySelector('.portfolio-slider');
+  sliderEl.addEventListener('mouseenter', stopAutoplay);
+  sliderEl.addEventListener('mouseleave', startAutoplay);
+  sliderEl.addEventListener('touchstart', stopAutoplay, { passive: true });
+  sliderEl.addEventListener('touchend', restartAutoplay, { passive: true });
+  sliderEl.addEventListener('touchcancel', restartAutoplay, { passive: true });
+  sliderEl.addEventListener('focusin', stopAutoplay);
+  sliderEl.addEventListener('focusout', startAutoplay);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAutoplay(); else startAutoplay();
+  });
+
+  startAutoplay();
+}
 
 // ── NAV SCROLL SHRINK ──
 const navEl = document.querySelector('nav');

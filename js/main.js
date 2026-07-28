@@ -55,22 +55,44 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ── FORM SUBMISSION ──
 const form = document.querySelector('.cta-form');
 if (form) {
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
     const btn = form.querySelector('.f-btn');
     const dict = translations[getLang()];
     const originalKey = btn.getAttribute('data-i18n');
-    btn.textContent = dict['form.success'];
-    btn.style.background = '#22C55E';
-    btn.style.color = '#fff';
+    const originalText = btn.textContent;
     btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = translations[getLang()][originalKey];
-      btn.style.background = '';
-      btn.style.color = '';
-      btn.disabled = false;
-      form.reset();
-    }, 3000);
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' },
+      });
+
+      if (!response.ok) throw new Error('Form submission failed');
+
+      btn.textContent = dict['form.success'];
+      btn.style.background = '#22C55E';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = translations[getLang()][originalKey];
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+        form.reset();
+      }, 3000);
+    } catch (err) {
+      btn.textContent = dict['form.error'];
+      btn.style.background = '#DC2626';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 3500);
+    }
   });
 }
 

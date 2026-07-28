@@ -16,7 +16,6 @@ const translations = {
     'hero.btn1': 'Iniciar projeto →',
     'hero.btn2': 'Ver serviços',
     'hero.proof1': 'Deploy em <6 semanas',
-    'hero.proof2': 'B2B · Portugal & Europa',
     'hero.proof3': 'Projetos à medida',
 
     'ticker.1': 'Automação de Processos',
@@ -196,6 +195,7 @@ const translations = {
     'form.submit': 'Agendar reunião gratuita →',
     'form.note': 'Resposta em menos de 24 horas · Sem spam · Sem compromisso',
     'form.success': 'Mensagem enviada ✓',
+    'form.error': 'Erro ao enviar. Tenta novamente.',
 
     'footer.location': 'Lisboa, Portugal &nbsp;·&nbsp; © 2025 OracleBusiness',
   },
@@ -215,7 +215,6 @@ const translations = {
     'hero.btn1': 'Start a project →',
     'hero.btn2': 'View services',
     'hero.proof1': 'Deploy in <6 weeks',
-    'hero.proof2': 'B2B · Portugal & Europe',
     'hero.proof3': 'Custom-built projects',
 
     'ticker.1': 'Process Automation',
@@ -395,6 +394,7 @@ const translations = {
     'form.submit': 'Schedule a free meeting →',
     'form.note': 'Response within 24 hours · No spam · No commitment',
     'form.success': 'Message sent ✓',
+    'form.error': 'Something went wrong. Please try again.',
 
     'footer.location': 'Lisbon, Portugal &nbsp;·&nbsp; © 2025 OracleBusiness',
   }

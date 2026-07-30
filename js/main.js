@@ -114,7 +114,7 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 });
 
-document.querySelectorAll('.ba-col, .manifesto, .stack-wrap, .faq-item, .trusted-bar, .sec-hd').forEach(el => {
+document.querySelectorAll('.ba-col, .manifesto, .stack-wrap, .faq-item, .sec-hd').forEach(el => {
   el.classList.add('reveal-init');
   revealObserver.observe(el);
 });

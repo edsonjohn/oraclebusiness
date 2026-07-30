@@ -401,11 +401,6 @@ nav.nav-scrolled { padding-top: 10px; padding-bottom: 10px; box-shadow: 0 8px 24
 .stat-v s { font-size: 26px; letter-spacing: -1px; color: var(--text2); text-decoration: none; }
 .stat-l { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
-/* ── TRUSTED BY ── */
-.trusted-bar { padding: 40px 52px; text-align: center; border-bottom: 1px solid var(--border); }
-.trusted-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
-.trusted-logos { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
-
 /* ── PORTFOLIO ── */
 .portfolio-slider { position: relative; }
 .portfolio-track {
@@ -821,18 +816,6 @@ nav.nav-scrolled { padding-top: 10px; padding-bottom: 10px; box-shadow: 0 8px 24
 .testi-nm { font-size: 13px; font-weight: 700; color: var(--text); }
 .testi-co { font-size: 11px; color: var(--muted); }
 
-.logo-item {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--muted);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  opacity: .5;
-  transition: opacity .2s;
-  cursor: default;
-}
-.logo-item:hover { opacity: .9; color: var(--text2); }
-
 /* ── MANIFESTO ── */
 .manifesto {
   background: var(--bg2);
@@ -1003,8 +986,6 @@ footer {
   .hero { grid-template-columns: 1fr; min-height: auto; padding: 60px 20px 50px; gap: 36px; }
   .hero h1 { font-size: 50px; letter-spacing: -1.5px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
-  .trusted-bar { padding: 28px 20px; }
-  .trusted-logos { gap: 24px; }
   .sec { padding: 60px 20px; }
   .sectors-grid { grid-template-columns: repeat(2, 1fr); }
   .port-card { flex-basis: 100%; }
